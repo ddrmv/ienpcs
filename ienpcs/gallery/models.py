@@ -31,7 +31,7 @@ class Npc(models.Model):
         max_length=2, choices=Alignment.choices, default=Alignment.UN
     )
     str = models.IntegerField()
-    str_percentile = models.IntegerField(null=True)
+    str_percentile = models.IntegerField(null=True, blank=True)
     dex = models.IntegerField()
     con = models.IntegerField()
     int = models.IntegerField()
