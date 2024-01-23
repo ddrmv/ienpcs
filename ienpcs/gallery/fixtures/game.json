@@ -1,0 +1,18 @@
+[
+    {
+        "model": "gallery.game",
+        "pk": 1,
+        "fields": {
+            "name": "Baldur's Gate",
+            "codename": "bg1"
+        }
+    },
+    {
+        "model": "gallery.game", 
+        "pk": 2,
+        "fields": {
+            "name": "Baldur's Gate 2",
+            "codename": "bg2"
+        }
+    }
+]

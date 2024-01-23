@@ -1,0 +1,40 @@
+[
+    {
+        "model": "gallery.npc",
+        "pk": 1,
+        "fields": {
+            "game": 1,
+            "name": "Ajantis",
+            "adnd_class": "Paladin",
+            "race": "Human",
+            "alignment": "LG",
+            "str": 17,
+            "str_percentile": null,
+            "dex": 13,
+            "con": 16,
+            "int": 12,
+            "wis": 13,
+            "cha": 17,
+            "description": "Adjantis is a Human Paladin."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 2,
+        "fields": {
+            "game": 1,
+            "name": "Alora",
+            "adnd_class": "Thief",
+            "race": "Halfling (F)",
+            "alignment": "CG",
+            "str": 8,
+            "str_percentile": null,
+            "dex": 19,
+            "con": 12,
+            "int": 14,
+            "wis": 7,
+            "cha": 10,
+            "description": "Alora is a Halfling Thief."
+        }
+    }
+]
