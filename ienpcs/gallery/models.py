@@ -1,3 +1,5 @@
+import hashlib
+import os
 from django.utils import timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -52,12 +54,31 @@ class Origin(models.TextChoices):
     BE = "BE", _("Beamdog")
 
 
+def web_image_with_hash(instance, filename):
+    path = "web_portraits"
+    fname, dot, extension = filename.rpartition('.')
+    file_hash = hashlib.sha1(instance.web_image.read()).hexdigest()
+    format = fname + "_" + file_hash + dot + extension
+    return os.path.join(path, format)
+
+def zip_file_with_hash(instance, filename):
+    path = "zip_file"
+    fname, dot, extension = filename.rpartition('.')
+    file_hash = hashlib.sha1(instance.zip_file.read()).hexdigest()
+    format = fname + "_" + file_hash + dot + extension
+    return os.path.join(path, format)
+
 class Portrait(models.Model):
     npc = models.ForeignKey(Npc, null=True, on_delete=models.SET_NULL)
     origin = models.CharField(max_length=2, choices=Origin.choices, default=Origin.FA)
     description = models.CharField(max_length=200, blank=True, default="")
     source = models.CharField(max_length=100, blank=True, default="")
     created = models.DateTimeField(default=timezone.now, blank=True)
+    web_image = models.ImageField(upload_to=web_image_with_hash)
+    zip_file = models.FileField(upload_to=zip_file_with_hash)
+
+    def __str__(self):
+        return f"{self.npc.name} - {self.description[:20]}"
 
 
 class NpcInGame(models.Model):

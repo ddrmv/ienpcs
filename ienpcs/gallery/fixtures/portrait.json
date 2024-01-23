@@ -5,20 +5,37 @@
         "fields": {
             "npc": 1,
             "origin": "OR",
-            "description": "",
+            "description": "This is the original file from Baldur's Gate 1.",
             "source": "",
-            "created": "2024-01-23T13:41:15.492Z"
+            "created": "2024-01-23T13:41:15Z",
+            "web_image": "web_portraits/ajan_170_d44f4e4cf88b785d167a1789d0ae789fe7adffd5.png",
+            "zip_file": "web_portraits/ajantis_30482ca93d89513cf25ed37cd956b3f9358acec7.zip"
         }
     },
     {
         "model": "gallery.portrait",
-        "pk": 2,
+        "pk": 3,
         "fields": {
-            "npc": 1,
-            "origin": "FA",
-            "description": "This was drawn by Bob.",
-            "source": "https://duckduckgo.com/?q=ajantis+portrait&t=ffab&iar=images&iax=images&ia=images",
-            "created": "2024-01-23T14:01:38.485Z"
+            "npc": 11,
+            "origin": "OR",
+            "description": "Original from BG1.",
+            "source": "",
+            "created": "2024-01-23T21:28:38Z",
+            "web_image": "web_portraits/jahe_170_964c171c9eeefaf19d8531e835b995cdeee5938b_iU0KT1r.png",
+            "zip_file": "zip_file/jaheira_44262e50c3fe7efaebd78ca8a2356c3b50ff5bcc.zip"
+        }
+    },
+    {
+        "model": "gallery.portrait",
+        "pk": 4,
+        "fields": {
+            "npc": 11,
+            "origin": "OR",
+            "description": "Original from BG2.",
+            "source": "",
+            "created": "2024-01-23T21:29:18Z",
+            "web_image": "web_portraits/jahe_170_9408e0155e7e595dc424cea43cce025e46c7c620.png",
+            "zip_file": "zip_file/jaheira_b1416fae0028960001487b1b428a669b7f70f5ee.zip"
         }
     }
 ]
