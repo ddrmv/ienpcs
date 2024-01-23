@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -41,3 +42,17 @@ class Npc(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Portrait(models.Model):
+    class Origin(models.TextChoices):
+        OR = "OR", _("Original")
+        MO = "MO", _("Mod")
+        FA = "FA", _("Fanart")
+        BE = "BE", _("Beamdog")
+
+    npc = models.ForeignKey(Npc, null=True, on_delete=models.SET_NULL)
+    origin = models.CharField(max_length=2, choices=Origin.choices, default=Origin.FA)
+    description = models.CharField(max_length=200, blank=True, default="")
+    source = models.CharField(max_length=100, blank=True, default="")
+    created = models.DateTimeField(default=timezone.now, blank=True)

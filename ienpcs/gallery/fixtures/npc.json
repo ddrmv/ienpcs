@@ -36,5 +36,765 @@
             "cha": 10,
             "description": "Alora is a Halfling Thief."
         }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 3,
+        "fields": {
+            "game": 1,
+            "name": "Branwen",
+            "adnd_class": "Cleric",
+            "race": "Human (F)",
+            "alignment": "TN",
+            "str": 13,
+            "str_percentile": null,
+            "dex": 16,
+            "con": 15,
+            "int": 9,
+            "wis": 16,
+            "cha": 13,
+            "description": "Branwen is a Human Cleric."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 4,
+        "fields": {
+            "game": 1,
+            "name": "Coran",
+            "adnd_class": "Fighter/Thief",
+            "race": "Elf (M)",
+            "alignment": "CG",
+            "str": 14,
+            "str_percentile": null,
+            "dex": 20,
+            "con": 12,
+            "int": 14,
+            "wis": 9,
+            "cha": 16,
+            "description": "Coran is an Elf Fighter/Thief."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 5,
+        "fields": {
+            "game": 1,
+            "name": "Dynaheir",
+            "adnd_class": "Invoker",
+            "race": "Human (F)",
+            "alignment": "LG",
+            "str": 11,
+            "str_percentile": null,
+            "dex": 13,
+            "con": 16,
+            "int": 17,
+            "wis": 15,
+            "cha": 12,
+            "description": "Dynaheir is a Human Invoker."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 6,
+        "fields": {
+            "game": 1,
+            "name": "Edwin",
+            "adnd_class": "Conjurer",
+            "race": "Human (M)",
+            "alignment": "LE",
+            "str": 9,
+            "str_percentile": null,
+            "dex": 10,
+            "con": 16,
+            "int": 18,
+            "wis": 9,
+            "cha": 10,
+            "description": "Edwin is a Human Conjurer."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 7,
+        "fields": {
+            "game": 1,
+            "name": "Eldoth",
+            "adnd_class": "Bard",
+            "race": "Human (M)",
+            "alignment": "NE",
+            "str": 16,
+            "str_percentile": null,
+            "dex": 12,
+            "con": 15,
+            "int": 13,
+            "wis": 10,
+            "cha": 16,
+            "description": "Eldoth is a Human Bard."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 8,
+        "fields": {
+            "game": 1,
+            "name": "Faldorn",
+            "adnd_class": "Druid",
+            "race": "Human (F)",
+            "alignment": "TN",
+            "str": 12,
+            "str_percentile": null,
+            "dex": 15,
+            "con": 11,
+            "int": 10,
+            "wis": 16,
+            "cha": 15,
+            "description": "Faldorn is a Human Druid."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 9,
+        "fields": {
+            "game": 1,
+            "name": "Garrick",
+            "adnd_class": "Bard",
+            "race": "Human (M)",
+            "alignment": "CN",
+            "str": 14,
+            "str_percentile": null,
+            "dex": 16,
+            "con": 9,
+            "int": 13,
+            "wis": 14,
+            "cha": 15,
+            "description": "Garrick is a Human Bard."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 10,
+        "fields": {
+            "game": 1,
+            "name": "Imoen",
+            "adnd_class": "Thief",
+            "race": "Human (F)",
+            "alignment": "NG",
+            "str": 9,
+            "str_percentile": null,
+            "dex": 18,
+            "con": 16,
+            "int": 17,
+            "wis": 11,
+            "cha": 16,
+            "description": "Imoen is a Human Thief."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 11,
+        "fields": {
+            "game": 1,
+            "name": "Jaheira",
+            "adnd_class": "Fighter/Druid",
+            "race": "Half-Elf (F)",
+            "alignment": "TN",
+            "str": 15,
+            "str_percentile": null,
+            "dex": 14,
+            "con": 17,
+            "int": 10,
+            "wis": 14,
+            "cha": 15,
+            "description": "Jaheira travels with Khalid."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 12,
+        "fields": {
+            "game": 1,
+            "name": "Kagain",
+            "adnd_class": "Fighter",
+            "race": "Dwarf (M)",
+            "alignment": "LE",
+            "str": 16,
+            "str_percentile": null,
+            "dex": 12,
+            "con": 20,
+            "int": 15,
+            "wis": 11,
+            "cha": 8,
+            "description": "Kagain loves gold."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 13,
+        "fields": {
+            "game": 1,
+            "name": "Khalid",
+            "adnd_class": "Fighter",
+            "race": "Half-Elf (M)",
+            "alignment": "NG",
+            "str": 15,
+            "str_percentile": null,
+            "dex": 16,
+            "con": 17,
+            "int": 15,
+            "wis": 10,
+            "cha": 9,
+            "description": "Khalid comes with Jaheira."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 14,
+        "fields": {
+            "game": 1,
+            "name": "Kivan",
+            "adnd_class": "Ranger",
+            "race": "Elf (M)",
+            "alignment": "CG",
+            "str": 18,
+            "str_percentile": 12,
+            "dex": 17,
+            "con": 14,
+            "int": 10,
+            "wis": 14,
+            "cha": 8,
+            "description": "Kivan is an Elven Ranger."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 15,
+        "fields": {
+            "game": 1,
+            "name": "Minsc",
+            "adnd_class": "Ranger",
+            "race": "Human (M)",
+            "alignment": "NG",
+            "str": 18,
+            "str_percentile": 93,
+            "dex": 15,
+            "con": 15,
+            "int": 8,
+            "wis": 6,
+            "cha": 9,
+            "description": "Comes with Boo."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 16,
+        "fields": {
+            "game": 1,
+            "name": "Montaron",
+            "adnd_class": "Fighter/Thief",
+            "race": "Halfling (M)",
+            "alignment": "NE",
+            "str": 16,
+            "str_percentile": null,
+            "dex": 17,
+            "con": 15,
+            "int": 12,
+            "wis": 13,
+            "cha": 9,
+            "description": "Comes with Xzar."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 17,
+        "fields": {
+            "game": 1,
+            "name": "Quayle",
+            "adnd_class": "Cleric/Illusionist",
+            "race": "Gnome (M)",
+            "alignment": "CN",
+            "str": 8,
+            "str_percentile": null,
+            "dex": 16,
+            "con": 11,
+            "int": 17,
+            "wis": 10,
+            "cha": 6,
+            "description": "Quayle is a Gnome caster."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 18,
+        "fields": {
+            "game": 1,
+            "name": "Safana",
+            "adnd_class": "Thief",
+            "race": "Human (F)",
+            "alignment": "CN",
+            "str": 13,
+            "str_percentile": null,
+            "dex": 17,
+            "con": 10,
+            "int": 16,
+            "wis": 9,
+            "cha": 17,
+            "description": "Safana is a Human Thief."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 19,
+        "fields": {
+            "game": 1,
+            "name": "Shar-Teel",
+            "adnd_class": "Fighter",
+            "race": "Human (F)",
+            "alignment": "CE",
+            "str": 18,
+            "str_percentile": 58,
+            "dex": 17,
+            "con": 9,
+            "int": 14,
+            "wis": 7,
+            "cha": 11,
+            "description": "Shar-Teel is a Human Fighter."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 20,
+        "fields": {
+            "game": 1,
+            "name": "Skie",
+            "adnd_class": "Thief",
+            "race": "Human (F)",
+            "alignment": "TN",
+            "str": 11,
+            "str_percentile": null,
+            "dex": 18,
+            "con": 15,
+            "int": 15,
+            "wis": 8,
+            "cha": 13,
+            "description": "Skie is a Human Thief."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 21,
+        "fields": {
+            "game": 1,
+            "name": "Tiax",
+            "adnd_class": "Cleric/Thief",
+            "race": "Gnome (M)",
+            "alignment": "CE",
+            "str": 9,
+            "str_percentile": null,
+            "dex": 16,
+            "con": 16,
+            "int": 10,
+            "wis": 13,
+            "cha": 9,
+            "description": "Tiax rules all."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 22,
+        "fields": {
+            "game": 1,
+            "name": "Viconia",
+            "adnd_class": "Cleric",
+            "race": "Drow (F)",
+            "alignment": "NE",
+            "str": 10,
+            "str_percentile": null,
+            "dex": 19,
+            "con": 8,
+            "int": 16,
+            "wis": 15,
+            "cha": 14,
+            "description": "Viconia is a Drow Cleric."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 23,
+        "fields": {
+            "game": 1,
+            "name": "Xan",
+            "adnd_class": "Enchanter",
+            "race": "Elf (M)",
+            "alignment": "LN",
+            "str": 13,
+            "str_percentile": null,
+            "dex": 16,
+            "con": 7,
+            "int": 17,
+            "wis": 14,
+            "cha": 16,
+            "description": "Xan is an Elven Enchanter."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 24,
+        "fields": {
+            "game": 1,
+            "name": "Xzar",
+            "adnd_class": "Necromancer",
+            "race": "Human (M)",
+            "alignment": "CE",
+            "str": 14,
+            "str_percentile": null,
+            "dex": 16,
+            "con": 10,
+            "int": 17,
+            "wis": 16,
+            "cha": 10,
+            "description": "Could dual to Cleric."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 25,
+        "fields": {
+            "game": 1,
+            "name": "Yeslick",
+            "adnd_class": "Fighter/Cleric",
+            "race": "Dwarf (M)",
+            "alignment": "LG",
+            "str": 15,
+            "str_percentile": null,
+            "dex": 12,
+            "con": 17,
+            "int": 7,
+            "wis": 16,
+            "cha": 10,
+            "description": "Yeslick is Dwarven Fighter/Cleric."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 26,
+        "fields": {
+            "game": 2,
+            "name": "Aerie",
+            "adnd_class": "Cleric/Mage",
+            "race": "Elf (F)",
+            "alignment": "LG",
+            "str": 10,
+            "str_percentile": null,
+            "dex": 17,
+            "con": 9,
+            "int": 16,
+            "wis": 16,
+            "cha": 14,
+            "description": "Aerie is an Elven Cleric/Mage."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 27,
+        "fields": {
+            "game": 2,
+            "name": "Anomen Delryn",
+            "adnd_class": "Fighter/Cleric",
+            "race": "Human (M)",
+            "alignment": "LN",
+            "str": 18,
+            "str_percentile": 52,
+            "dex": 10,
+            "con": 16,
+            "int": 10,
+            "wis": 12,
+            "cha": 13,
+            "description": "Anomen is a Human Fighter/Cleric."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 28,
+        "fields": {
+            "game": 2,
+            "name": "Cernd",
+            "adnd_class": "Shapeshifter",
+            "race": "Human (M)",
+            "alignment": "TN",
+            "str": 13,
+            "str_percentile": null,
+            "dex": 9,
+            "con": 13,
+            "int": 12,
+            "wis": 18,
+            "cha": 15,
+            "description": "Cernd is a Human Shapeshifter."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 29,
+        "fields": {
+            "game": 2,
+            "name": "Edwin Odesseiron (BG2)",
+            "adnd_class": "Conjurer",
+            "race": "Human (M)",
+            "alignment": "LE",
+            "str": 10,
+            "str_percentile": null,
+            "dex": 10,
+            "con": 16,
+            "int": 18,
+            "wis": 10,
+            "cha": 10,
+            "description": "Edwin is a Human Conjurer."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 30,
+        "fields": {
+            "game": 2,
+            "name": "Haer'Dalis",
+            "adnd_class": "Blade",
+            "race": "Tiefling (M)",
+            "alignment": "CN",
+            "str": 17,
+            "str_percentile": null,
+            "dex": 17,
+            "con": 9,
+            "int": 15,
+            "wis": 13,
+            "cha": 16,
+            "description": "Haer'Dalis is a Tiefling Blade."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 31,
+        "fields": {
+            "game": 2,
+            "name": "Imoen (BG2)",
+            "adnd_class": "Mage/Thief",
+            "race": "Human (F)",
+            "alignment": "NG",
+            "str": 9,
+            "str_percentile": null,
+            "dex": 18,
+            "con": 16,
+            "int": 17,
+            "wis": 11,
+            "cha": 16,
+            "description": "Imoen is a Human Mage/Thief."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 32,
+        "fields": {
+            "game": 2,
+            "name": "Jaheira (BG2)",
+            "adnd_class": "Fighter/Druid",
+            "race": "Half-Elf (F)",
+            "alignment": "TN",
+            "str": 15,
+            "str_percentile": null,
+            "dex": 17,
+            "con": 17,
+            "int": 10,
+            "wis": 14,
+            "cha": 15,
+            "description": "Jaheira travels with Khalid."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 33,
+        "fields": {
+            "game": 2,
+            "name": "Jan Jansen",
+            "adnd_class": "Illusionist/Thief",
+            "race": "Gnome (M)",
+            "alignment": "CN",
+            "str": 9,
+            "str_percentile": null,
+            "dex": 17,
+            "con": 15,
+            "int": 16,
+            "wis": 14,
+            "cha": 10,
+            "description": "Jan talks a lot."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 34,
+        "fields": {
+            "game": 2,
+            "name": "Keldorn Firecam",
+            "adnd_class": "Inquisitor",
+            "race": "Human (M)",
+            "alignment": "LG",
+            "str": 17,
+            "str_percentile": null,
+            "dex": 9,
+            "con": 17,
+            "int": 12,
+            "wis": 16,
+            "cha": 18,
+            "description": "Keldorn is a Human Inquisitor."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 35,
+        "fields": {
+            "game": 2,
+            "name": "Korgan Bloodaxe",
+            "adnd_class": "Berserker",
+            "race": "Dwarf (M)",
+            "alignment": "CE",
+            "str": 18,
+            "str_percentile": 77,
+            "dex": 15,
+            "con": 19,
+            "int": 12,
+            "wis": 9,
+            "cha": 7,
+            "description": "Korgan is a Dwarven Berserker."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 36,
+        "fields": {
+            "game": 2,
+            "name": "Mazzy Fentan",
+            "adnd_class": "Fighter",
+            "race": "Halfling (F)",
+            "alignment": "LG",
+            "str": 15,
+            "str_percentile": null,
+            "dex": 18,
+            "con": 16,
+            "int": 10,
+            "wis": 13,
+            "cha": 14,
+            "description": "Mazzy is a Halfling Fighter."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 37,
+        "fields": {
+            "game": 2,
+            "name": "Minsc (BG2)",
+            "adnd_class": "Ranger",
+            "race": "Human (M)",
+            "alignment": "CG",
+            "str": 18,
+            "str_percentile": 93,
+            "dex": 16,
+            "con": 16,
+            "int": 8,
+            "wis": 6,
+            "cha": 9,
+            "description": "Comes with Boo."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 38,
+        "fields": {
+            "game": 2,
+            "name": "Nalia de'Arnise",
+            "adnd_class": "Mage/Thief",
+            "race": "Human (F)",
+            "alignment": "CG",
+            "str": 14,
+            "str_percentile": null,
+            "dex": 18,
+            "con": 16,
+            "int": 17,
+            "wis": 9,
+            "cha": 13,
+            "description": "Nalia is a Human Mage/Thief."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 39,
+        "fields": {
+            "game": 2,
+            "name": "Sarevok Anchev",
+            "adnd_class": "Fighter",
+            "race": "Human (M)",
+            "alignment": "CE",
+            "str": 18,
+            "str_percentile": 0,
+            "dex": 17,
+            "con": 18,
+            "int": 17,
+            "wis": 10,
+            "cha": 15,
+            "description": "Sarevok is a Human Fighter."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 40,
+        "fields": {
+            "game": 2,
+            "name": "Valygar Corthala",
+            "adnd_class": "Stalker",
+            "race": "Human (M)",
+            "alignment": "NG",
+            "str": 17,
+            "str_percentile": null,
+            "dex": 18,
+            "con": 16,
+            "int": 10,
+            "wis": 14,
+            "cha": 10,
+            "description": "Valygar is a Human Stalker."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 41,
+        "fields": {
+            "game": 2,
+            "name": "Viconia (BG2)",
+            "adnd_class": "Cleric",
+            "race": "Drow (F)",
+            "alignment": "NE",
+            "str": 10,
+            "str_percentile": null,
+            "dex": 19,
+            "con": 8,
+            "int": 16,
+            "wis": 18,
+            "cha": 14,
+            "description": "Viconia is a Drow Cleric."
+        }
+    },
+    {
+        "model": "gallery.npc",
+        "pk": 42,
+        "fields": {
+            "game": 2,
+            "name": "Yoshimo",
+            "adnd_class": "Bounty Hunter",
+            "race": "Human (M)",
+            "alignment": "TN",
+            "str": 17,
+            "str_percentile": null,
+            "dex": 18,
+            "con": 16,
+            "int": 13,
+            "wis": 10,
+            "cha": 14,
+            "description": "Yoshimo is a Human Bounty Hunter."
+        }
     }
 ]
