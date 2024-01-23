@@ -3,7 +3,6 @@
         "model": "gallery.npc",
         "pk": 1,
         "fields": {
-            "game": 1,
             "name": "Ajantis",
             "adnd_class": "Paladin",
             "race": "Human",
@@ -22,7 +21,6 @@
         "model": "gallery.npc",
         "pk": 2,
         "fields": {
-            "game": 1,
             "name": "Alora",
             "adnd_class": "Thief",
             "race": "Halfling (F)",
@@ -41,7 +39,6 @@
         "model": "gallery.npc",
         "pk": 3,
         "fields": {
-            "game": 1,
             "name": "Branwen",
             "adnd_class": "Cleric",
             "race": "Human (F)",
@@ -60,7 +57,6 @@
         "model": "gallery.npc",
         "pk": 4,
         "fields": {
-            "game": 1,
             "name": "Coran",
             "adnd_class": "Fighter/Thief",
             "race": "Elf (M)",
@@ -79,7 +75,6 @@
         "model": "gallery.npc",
         "pk": 5,
         "fields": {
-            "game": 1,
             "name": "Dynaheir",
             "adnd_class": "Invoker",
             "race": "Human (F)",
@@ -98,7 +93,6 @@
         "model": "gallery.npc",
         "pk": 6,
         "fields": {
-            "game": 1,
             "name": "Edwin",
             "adnd_class": "Conjurer",
             "race": "Human (M)",
@@ -117,7 +111,6 @@
         "model": "gallery.npc",
         "pk": 7,
         "fields": {
-            "game": 1,
             "name": "Eldoth",
             "adnd_class": "Bard",
             "race": "Human (M)",
@@ -136,7 +129,6 @@
         "model": "gallery.npc",
         "pk": 8,
         "fields": {
-            "game": 1,
             "name": "Faldorn",
             "adnd_class": "Druid",
             "race": "Human (F)",
@@ -155,7 +147,6 @@
         "model": "gallery.npc",
         "pk": 9,
         "fields": {
-            "game": 1,
             "name": "Garrick",
             "adnd_class": "Bard",
             "race": "Human (M)",
@@ -174,7 +165,6 @@
         "model": "gallery.npc",
         "pk": 10,
         "fields": {
-            "game": 1,
             "name": "Imoen",
             "adnd_class": "Thief",
             "race": "Human (F)",
@@ -193,7 +183,6 @@
         "model": "gallery.npc",
         "pk": 11,
         "fields": {
-            "game": 1,
             "name": "Jaheira",
             "adnd_class": "Fighter/Druid",
             "race": "Half-Elf (F)",
@@ -212,7 +201,6 @@
         "model": "gallery.npc",
         "pk": 12,
         "fields": {
-            "game": 1,
             "name": "Kagain",
             "adnd_class": "Fighter",
             "race": "Dwarf (M)",
@@ -231,7 +219,6 @@
         "model": "gallery.npc",
         "pk": 13,
         "fields": {
-            "game": 1,
             "name": "Khalid",
             "adnd_class": "Fighter",
             "race": "Half-Elf (M)",
@@ -250,7 +237,6 @@
         "model": "gallery.npc",
         "pk": 14,
         "fields": {
-            "game": 1,
             "name": "Kivan",
             "adnd_class": "Ranger",
             "race": "Elf (M)",
@@ -269,7 +255,6 @@
         "model": "gallery.npc",
         "pk": 15,
         "fields": {
-            "game": 1,
             "name": "Minsc",
             "adnd_class": "Ranger",
             "race": "Human (M)",
@@ -288,7 +273,6 @@
         "model": "gallery.npc",
         "pk": 16,
         "fields": {
-            "game": 1,
             "name": "Montaron",
             "adnd_class": "Fighter/Thief",
             "race": "Halfling (M)",
@@ -307,7 +291,6 @@
         "model": "gallery.npc",
         "pk": 17,
         "fields": {
-            "game": 1,
             "name": "Quayle",
             "adnd_class": "Cleric/Illusionist",
             "race": "Gnome (M)",
@@ -326,7 +309,6 @@
         "model": "gallery.npc",
         "pk": 18,
         "fields": {
-            "game": 1,
             "name": "Safana",
             "adnd_class": "Thief",
             "race": "Human (F)",
@@ -345,7 +327,6 @@
         "model": "gallery.npc",
         "pk": 19,
         "fields": {
-            "game": 1,
             "name": "Shar-Teel",
             "adnd_class": "Fighter",
             "race": "Human (F)",
@@ -364,7 +345,6 @@
         "model": "gallery.npc",
         "pk": 20,
         "fields": {
-            "game": 1,
             "name": "Skie",
             "adnd_class": "Thief",
             "race": "Human (F)",
@@ -383,7 +363,6 @@
         "model": "gallery.npc",
         "pk": 21,
         "fields": {
-            "game": 1,
             "name": "Tiax",
             "adnd_class": "Cleric/Thief",
             "race": "Gnome (M)",
@@ -402,7 +381,6 @@
         "model": "gallery.npc",
         "pk": 22,
         "fields": {
-            "game": 1,
             "name": "Viconia",
             "adnd_class": "Cleric",
             "race": "Drow (F)",
@@ -421,7 +399,6 @@
         "model": "gallery.npc",
         "pk": 23,
         "fields": {
-            "game": 1,
             "name": "Xan",
             "adnd_class": "Enchanter",
             "race": "Elf (M)",
@@ -440,7 +417,6 @@
         "model": "gallery.npc",
         "pk": 24,
         "fields": {
-            "game": 1,
             "name": "Xzar",
             "adnd_class": "Necromancer",
             "race": "Human (M)",
@@ -459,7 +435,6 @@
         "model": "gallery.npc",
         "pk": 25,
         "fields": {
-            "game": 1,
             "name": "Yeslick",
             "adnd_class": "Fighter/Cleric",
             "race": "Dwarf (M)",
@@ -478,7 +453,6 @@
         "model": "gallery.npc",
         "pk": 26,
         "fields": {
-            "game": 2,
             "name": "Aerie",
             "adnd_class": "Cleric/Mage",
             "race": "Elf (F)",
@@ -497,7 +471,6 @@
         "model": "gallery.npc",
         "pk": 27,
         "fields": {
-            "game": 2,
             "name": "Anomen Delryn",
             "adnd_class": "Fighter/Cleric",
             "race": "Human (M)",
@@ -516,7 +489,6 @@
         "model": "gallery.npc",
         "pk": 28,
         "fields": {
-            "game": 2,
             "name": "Cernd",
             "adnd_class": "Shapeshifter",
             "race": "Human (M)",
@@ -535,7 +507,6 @@
         "model": "gallery.npc",
         "pk": 29,
         "fields": {
-            "game": 2,
             "name": "Edwin Odesseiron (BG2)",
             "adnd_class": "Conjurer",
             "race": "Human (M)",
@@ -554,7 +525,6 @@
         "model": "gallery.npc",
         "pk": 30,
         "fields": {
-            "game": 2,
             "name": "Haer'Dalis",
             "adnd_class": "Blade",
             "race": "Tiefling (M)",
@@ -573,7 +543,6 @@
         "model": "gallery.npc",
         "pk": 31,
         "fields": {
-            "game": 2,
             "name": "Imoen (BG2)",
             "adnd_class": "Mage/Thief",
             "race": "Human (F)",
@@ -592,7 +561,6 @@
         "model": "gallery.npc",
         "pk": 32,
         "fields": {
-            "game": 2,
             "name": "Jaheira (BG2)",
             "adnd_class": "Fighter/Druid",
             "race": "Half-Elf (F)",
@@ -611,7 +579,6 @@
         "model": "gallery.npc",
         "pk": 33,
         "fields": {
-            "game": 2,
             "name": "Jan Jansen",
             "adnd_class": "Illusionist/Thief",
             "race": "Gnome (M)",
@@ -630,7 +597,6 @@
         "model": "gallery.npc",
         "pk": 34,
         "fields": {
-            "game": 2,
             "name": "Keldorn Firecam",
             "adnd_class": "Inquisitor",
             "race": "Human (M)",
@@ -649,7 +615,6 @@
         "model": "gallery.npc",
         "pk": 35,
         "fields": {
-            "game": 2,
             "name": "Korgan Bloodaxe",
             "adnd_class": "Berserker",
             "race": "Dwarf (M)",
@@ -668,7 +633,6 @@
         "model": "gallery.npc",
         "pk": 36,
         "fields": {
-            "game": 2,
             "name": "Mazzy Fentan",
             "adnd_class": "Fighter",
             "race": "Halfling (F)",
@@ -687,7 +651,6 @@
         "model": "gallery.npc",
         "pk": 37,
         "fields": {
-            "game": 2,
             "name": "Minsc (BG2)",
             "adnd_class": "Ranger",
             "race": "Human (M)",
@@ -706,7 +669,6 @@
         "model": "gallery.npc",
         "pk": 38,
         "fields": {
-            "game": 2,
             "name": "Nalia de'Arnise",
             "adnd_class": "Mage/Thief",
             "race": "Human (F)",
@@ -725,7 +687,6 @@
         "model": "gallery.npc",
         "pk": 39,
         "fields": {
-            "game": 2,
             "name": "Sarevok Anchev",
             "adnd_class": "Fighter",
             "race": "Human (M)",
@@ -744,7 +705,6 @@
         "model": "gallery.npc",
         "pk": 40,
         "fields": {
-            "game": 2,
             "name": "Valygar Corthala",
             "adnd_class": "Stalker",
             "race": "Human (M)",
@@ -763,7 +723,6 @@
         "model": "gallery.npc",
         "pk": 41,
         "fields": {
-            "game": 2,
             "name": "Viconia (BG2)",
             "adnd_class": "Cleric",
             "race": "Drow (F)",
@@ -782,7 +741,6 @@
         "model": "gallery.npc",
         "pk": 42,
         "fields": {
-            "game": 2,
             "name": "Yoshimo",
             "adnd_class": "Bounty Hunter",
             "race": "Human (M)",

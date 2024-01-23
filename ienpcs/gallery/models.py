@@ -24,7 +24,8 @@ class Npc(models.Model):
         LE = "LE", _("Lawful Evil")
         UN = "UN", _("Unknown")
 
-    game = models.ForeignKey(Game, null=True, on_delete=models.SET_NULL)
+    # game = models.ForeignKey(Game, null=True, on_delete=models.SET_NULL)
+    game = models.ManyToManyField(Game, through="NpcInGame")
     name = models.CharField(max_length=100)
     adnd_class = models.CharField(max_length=25)
     race = models.CharField(max_length=20)
@@ -44,15 +45,26 @@ class Npc(models.Model):
         return self.name
 
 
-class Portrait(models.Model):
-    class Origin(models.TextChoices):
-        OR = "OR", _("Original")
-        MO = "MO", _("Mod")
-        FA = "FA", _("Fanart")
-        BE = "BE", _("Beamdog")
+class Origin(models.TextChoices):
+    OR = "OR", _("Original")
+    MO = "MO", _("Mod")
+    FA = "FA", _("Fanart")
+    BE = "BE", _("Beamdog")
 
+
+class Portrait(models.Model):
     npc = models.ForeignKey(Npc, null=True, on_delete=models.SET_NULL)
     origin = models.CharField(max_length=2, choices=Origin.choices, default=Origin.FA)
     description = models.CharField(max_length=200, blank=True, default="")
     source = models.CharField(max_length=100, blank=True, default="")
     created = models.DateTimeField(default=timezone.now, blank=True)
+
+
+class NpcInGame(models.Model):
+    game = models.ForeignKey(Game, null=True, on_delete=models.SET_NULL)
+    npc = models.ForeignKey(Npc, null=True, on_delete=models.SET_NULL)
+    origin = models.CharField(max_length=2, choices=Origin.choices, default=Origin.MO)
+
+    def __str__(self):
+        return f"[{self.npc}] (pk={self.npc.pk}) in [{self.game}] (pk={self.game.pk})"
+    
