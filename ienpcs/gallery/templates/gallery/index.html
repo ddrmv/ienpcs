@@ -1,0 +1,14 @@
+{% extends 'gallery/base.html' %}
+
+{% block title %}
+  <title>Games</title>
+{% endblock %}
+
+{% block content %}
+  {% for game in game_list %}
+    <p>{{ game.name }}</p>
+    {% for npc in game.npc_set.all %}
+      {{ npc.name }} |
+    {% endfor %}
+  {% endfor %}
+{% endblock %}

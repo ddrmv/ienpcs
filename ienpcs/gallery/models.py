@@ -56,17 +56,19 @@ class Origin(models.TextChoices):
 
 def web_image_with_hash(instance, filename):
     path = "web_portraits"
-    fname, dot, extension = filename.rpartition('.')
+    fname, dot, extension = filename.rpartition(".")
     file_hash = hashlib.sha1(instance.web_image.read()).hexdigest()
     format = fname + "_" + file_hash + dot + extension
     return os.path.join(path, format)
 
+
 def zip_file_with_hash(instance, filename):
     path = "zip_file"
-    fname, dot, extension = filename.rpartition('.')
+    fname, dot, extension = filename.rpartition(".")
     file_hash = hashlib.sha1(instance.zip_file.read()).hexdigest()
     format = fname + "_" + file_hash + dot + extension
     return os.path.join(path, format)
+
 
 class Portrait(models.Model):
     npc = models.ForeignKey(Npc, null=True, on_delete=models.SET_NULL)
@@ -88,4 +90,3 @@ class NpcInGame(models.Model):
 
     def __str__(self):
         return f"[{self.npc}] (pk={self.npc.pk}) in [{self.game}] (pk={self.game.pk})"
-    

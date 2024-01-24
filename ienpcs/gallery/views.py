@@ -1,6 +1,10 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+# from django.shortcuts import render
+from django.views import generic
+
+from .models import Game
 
 
-def index(request):
-    return HttpResponse("index, to include bg1, bg2, bgt, bgtutu")
+class IndexView(generic.ListView):
+    template_name = "gallery/index.html"
+    context_object_name = "game_list"
+    queryset = Game.objects.all()
