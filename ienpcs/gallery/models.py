@@ -26,7 +26,6 @@ class Npc(models.Model):
         LE = "LE", _("Lawful Evil")
         UN = "UN", _("Unknown")
 
-    # game = models.ForeignKey(Game, null=True, on_delete=models.SET_NULL)
     game = models.ManyToManyField(Game, through="NpcInGame")
     name = models.CharField(max_length=100)
     adnd_class = models.CharField(max_length=25)
