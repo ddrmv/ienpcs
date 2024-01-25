@@ -1,4 +1,4 @@
-# from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from django.views import generic
 
 from .models import Game
@@ -14,3 +14,11 @@ class GameDetailView(generic.DetailView):
     template_name = "gallery/game_detail.html"
     model = Game
     slug_field = "codename"
+
+
+def toggle_theme(request):
+    if request.session.get("theme", "light") == "dark":
+        request.session["theme"] = "iight"
+    else:
+        request.session["theme"] = "dark"
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
