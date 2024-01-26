@@ -1,7 +1,8 @@
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django.views import generic
 
-from .models import Game
+from .models import Game, NpcInGame
 
 
 class IndexView(generic.ListView):
@@ -10,10 +11,20 @@ class IndexView(generic.ListView):
     queryset = Game.objects.all()
 
 
-class GameDetailView(generic.DetailView):
-    template_name = "gallery/game_detail.html"
-    model = Game
-    slug_field = "codename"
+def game_detail(request, slug):
+    game = get_object_or_404(Game, codename=slug)
+    unique_origins = ["OR", "BE", "MO"]
+    origin_map = {"OR": "Original", "BE": "Beamdog", "MO": "Mods"}
+    origin_dict = {}
+    for origin in unique_origins:
+        origin_dict[origin_map[origin]] = NpcInGame.objects.filter(
+            game=game, origin=origin
+        ).order_by("npc__name")
+        if not origin_dict[origin_map[origin]]:
+            del origin_dict[origin_map[origin]]
+    return render(
+        request, "gallery/game_detail.html", {"game": game, "origin_dict": origin_dict}
+    )
 
 
 def toggle_theme(request):
