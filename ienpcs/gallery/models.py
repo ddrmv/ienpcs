@@ -76,6 +76,7 @@ class Npc(models.Model):
         LE = "LE", _("Lawful Evil")
         UN = "UN", _("Unknown")
 
+    web_image = models.ImageField(upload_to=web_image_with_hash, null=True)
     character = models.ForeignKey(Character, on_delete=models.CASCADE)
     game = models.ManyToManyField(Game, through="NpcInGame")
     name = models.CharField(max_length=100)
@@ -120,4 +121,4 @@ class NpcInGame(models.Model):
     )
 
     def __str__(self):
-        return f"[{self.npc}] (pk={self.npc.pk}) in [{self.game}] (pk={self.game.pk})"
+        return f"{self.npc}  -  {self.game}"

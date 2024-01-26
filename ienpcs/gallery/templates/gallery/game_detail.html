@@ -18,9 +18,7 @@
           <div class="card h-100" style="width: 20rem;">
             <div class="row g-0">
               <div class="col" style="max-width: 120px;">
-                {% with npc.portrait_set.all|first as portrait %}
-                  <img src="{{ portrait.web_image.url "" }}" class="rounded-start" alt="..." />
-                {% endwith %}
+                <img src="{{ npc.web_image.url }}" class="rounded-start" alt="..." />
               </div>
               <div class="col">
                 <div class="card-body p-2">
