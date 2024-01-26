@@ -19,7 +19,7 @@
             <div class="row g-0">
               <div class="col" style="max-width: 120px;">
                 {% with npc.portrait_set.all|first as portrait %}
-                  <img src="{{ portrait.web_image.url }}" class="rounded-start" alt="..." />
+                  <img src="{{ portrait.web_image.url "" }}" class="rounded-start" alt="..." />
                 {% endwith %}
               </div>
               <div class="col">

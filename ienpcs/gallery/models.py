@@ -1,8 +1,33 @@
 import hashlib
 import os
-from django.utils import timezone
+
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+
+
+def web_image_with_hash(instance, filename):
+    path = "web_portraits"
+    fname, dot, extension = filename.rpartition(".")
+    file_hash = hashlib.sha1(instance.web_image.read()).hexdigest()
+    format = fname + "_" + file_hash + dot + extension
+    return os.path.join(path, format)
+
+
+def zip_file_with_hash(instance, filename):
+    path = "zip_file"
+    fname, dot, extension = filename.rpartition(".")
+    file_hash = hashlib.sha1(instance.zip_file.read()).hexdigest()
+    format = fname + "_" + file_hash + dot + extension
+    return os.path.join(path, format)
+
+
+def char_portrait_with_hash(instance, filename):
+    path = "chars"
+    fname, dot, extension = filename.rpartition(".")
+    file_hash = hashlib.sha1(instance.img_170.read()).hexdigest()
+    format = fname + "_" + file_hash + dot + extension
+    return os.path.join(path, format)
 
 
 class Game(models.Model):
@@ -11,6 +36,31 @@ class Game(models.Model):
 
     def __str__(self):
         return self.codename
+
+
+class CharOrigin(models.TextChoices):
+    OR = "OR", _("Original")
+    MO = "MO", _("Mod")
+    BE = "BE", _("Beamdog")
+
+
+class PortraitOrigin(models.TextChoices):
+    OR = "OR", _("Original")
+    MO = "MO", _("Mod")
+    FA = "FA", _("Fanart")
+    BE = "BE", _("Beamdog")
+
+
+class Character(models.Model):
+    name = models.CharField(max_length=100)
+    origin = models.CharField(
+        max_length=2, choices=CharOrigin.choices, default=CharOrigin.OR
+    )
+    img_170 = models.ImageField(upload_to=char_portrait_with_hash)
+    description = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return f"{self.name}"
 
 
 class Npc(models.Model):
@@ -26,6 +76,7 @@ class Npc(models.Model):
         LE = "LE", _("Lawful Evil")
         UN = "UN", _("Unknown")
 
+    character = models.ForeignKey(Character, on_delete=models.CASCADE)
     game = models.ManyToManyField(Game, through="NpcInGame")
     name = models.CharField(max_length=100)
     adnd_class = models.CharField(max_length=25)
@@ -46,32 +97,11 @@ class Npc(models.Model):
         return self.name
 
 
-class Origin(models.TextChoices):
-    OR = "OR", _("Original")
-    MO = "MO", _("Mod")
-    FA = "FA", _("Fanart")
-    BE = "BE", _("Beamdog")
-
-
-def web_image_with_hash(instance, filename):
-    path = "web_portraits"
-    fname, dot, extension = filename.rpartition(".")
-    file_hash = hashlib.sha1(instance.web_image.read()).hexdigest()
-    format = fname + "_" + file_hash + dot + extension
-    return os.path.join(path, format)
-
-
-def zip_file_with_hash(instance, filename):
-    path = "zip_file"
-    fname, dot, extension = filename.rpartition(".")
-    file_hash = hashlib.sha1(instance.zip_file.read()).hexdigest()
-    format = fname + "_" + file_hash + dot + extension
-    return os.path.join(path, format)
-
-
 class Portrait(models.Model):
     npc = models.ForeignKey(Npc, null=True, on_delete=models.SET_NULL)
-    origin = models.CharField(max_length=2, choices=Origin.choices, default=Origin.FA)
+    origin = models.CharField(
+        max_length=2, choices=CharOrigin.choices, default=CharOrigin.OR
+    )
     description = models.CharField(max_length=200, blank=True, default="")
     source = models.CharField(max_length=100, blank=True, default="")
     created = models.DateTimeField(default=timezone.now, blank=True)
@@ -85,7 +115,9 @@ class Portrait(models.Model):
 class NpcInGame(models.Model):
     game = models.ForeignKey(Game, null=True, on_delete=models.SET_NULL)
     npc = models.ForeignKey(Npc, null=True, on_delete=models.SET_NULL)
-    origin = models.CharField(max_length=2, choices=Origin.choices, default=Origin.MO)
+    origin = models.CharField(
+        max_length=2, choices=CharOrigin.choices, default=CharOrigin.OR
+    )
 
     def __str__(self):
         return f"[{self.npc}] (pk={self.npc.pk}) in [{self.game}] (pk={self.game.pk})"
