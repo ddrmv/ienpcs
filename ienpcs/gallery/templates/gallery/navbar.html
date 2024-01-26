@@ -3,24 +3,34 @@
     <a class="navbar-brand" href="{% url 'game_list' %}">IENPCs</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      {% comment %}keep prettier-ignore, if removed the django-formatter addon deletes good code{% endcomment %}
+      {# prettier-ignore #}
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link {% if request.resolver_match.url_name == 'game_list' %}active{% endif %}" {% if request.resolver_match.url_name == 'game_list' %} aria-current="page" {% endif %} href="{% url 'game_list' %}">Games</a>
+          <a class="nav-link {% if request.resolver_match.url_name == 'game_list' %}active{% endif %}"
+          aria-selected="{% if request.resolver_match.url_name == 'game_list' %}true{% else %}false{% endif %}"
+          href="{% url 'game_list' %}">Games</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if request.resolver_match.url_name == 'character_list' %}active{% endif %}" {% if request.resolver_match.url_name == 'character_list' %} aria-current="page" {% endif %} href="{% url 'character_list' %}">Characters</a>
+          <a class="nav-link {% if request.resolver_match.url_name == 'character_list' %}active{% endif %}"
+          aria-selected="{% if request.resolver_match.url_name == 'character_list' %}true{% else %}false{% endif %}"
+          href="{% url 'character_list' %}">Characters</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if request.resolver_match.url_name == 'link_list' %}active{% endif %}" {% if request.resolver_match.url_name == 'link_list' %} aria-current="page" {% endif %} href="{% url 'link_list' %}">Links</a>
+          <a class="nav-link {% if request.resolver_match.url_name == 'link_list' %}active{% endif %}"
+          aria-selected="{% if request.resolver_match.url_name == 'link_list' %}true{% else %}false{% endif %}"
+          href="{% url 'link_list' %}">Links</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" {% if request.resolver_match.url_name == 'about' %} aria-current="page" {% endif %} href="{% url 'about' %}">About</a>
+          <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}"
+          aria-selected="{% if request.resolver_match.url_name == 'about' %}true{% else %}false{% endif %}"
+          href="{% url 'about' %}">About</a>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true">Login</a>
         </li>
       </ul>
-      <form method="POST" action="{% url 'toggle_theme' %}">
+      <form method="post" action="{% url 'toggle_theme' %}">
         {% csrf_token %}
         <button type="submit" class="btn ms-2 btn-outline-secondary">Dark/Light</button>
       </form>
