@@ -98,7 +98,7 @@ class Npc(models.Model):
 
 
 class Portrait(models.Model):
-    npc = models.ForeignKey(Npc, null=True, on_delete=models.SET_NULL)
+    character = models.ForeignKey(Character, null=True, on_delete=models.SET_NULL)
     origin = models.CharField(
         max_length=2, choices=CharOrigin.choices, default=CharOrigin.OR
     )
@@ -109,7 +109,7 @@ class Portrait(models.Model):
     zip_file = models.FileField(upload_to=zip_file_with_hash)
 
     def __str__(self):
-        return f"{self.npc.name} - {self.description[:20]}"
+        return f"{self.character.name} - {self.description[:20]}"
 
 
 class NpcInGame(models.Model):
