@@ -1,34 +1,23 @@
 <nav class="navbar navbar-expand-lg bg-body-secondary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'index' %}">Navbar</a>
+    <a class="navbar-brand" href="{% url 'game_list' %}">IENPCs</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link {% if request.resolver_match.url_name == 'game_list' %}active{% endif %}" {% if request.resolver_match.url_name == 'game_list' %} aria-current="page" {% endif %} href="{% url 'game_list' %}">Games</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-          <ul class="dropdown-menu">
-            <li>
-              <a class="dropdown-item" href="#">Action</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Another action</a>
-            </li>
-            <li>
-              <hr class="dropdown-divider" />
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </li>
-          </ul>
+          <a class="nav-link {% if request.resolver_match.url_name == 'character_list' %}active{% endif %}" {% if request.resolver_match.url_name == 'character_list' %} aria-current="page" {% endif %} href="{% url 'character_list' %}">Characters</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          <a class="nav-link {% if request.resolver_match.url_name == 'link_list' %}active{% endif %}" {% if request.resolver_match.url_name == 'link_list' %} aria-current="page" {% endif %} href="{% url 'link_list' %}">Links</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" {% if request.resolver_match.url_name == 'about' %} aria-current="page" {% endif %} href="{% url 'about' %}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Login</a>
         </li>
       </ul>
       <form method="POST" action="{% url 'toggle_theme' %}">
