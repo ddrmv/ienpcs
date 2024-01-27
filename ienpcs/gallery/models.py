@@ -55,8 +55,8 @@ class CharOrigin(models.TextChoices):
 class PortraitOrigin(models.TextChoices):
     OR = "OR", _("Original")
     MO = "MO", _("Mod")
-    FA = "FA", _("Fanart")
     BE = "BE", _("Beamdog")
+    FA = "FA", _("Fanart")
 
 
 class Character(models.Model):
@@ -91,6 +91,7 @@ class Npc(models.Model):
     character = models.ForeignKey(Character, on_delete=models.CASCADE)
     game = models.ManyToManyField(Game, through="NpcInGame")
     name = models.CharField(max_length=100)
+    admin_note = models.CharField(max_length=25, null=True, blank=True)
     adnd_class = models.CharField(max_length=25)
     race = models.CharField(max_length=20)
     alignment = models.CharField(
@@ -103,10 +104,10 @@ class Npc(models.Model):
     int = models.IntegerField()
     wis = models.IntegerField()
     cha = models.IntegerField()
-    description = models.CharField(max_length=500)
+    description = models.CharField(max_length=500, blank=True, default="")
 
     def __str__(self):
-        return self.name
+        return f"{self.name} ({self.admin_note})"
 
     class Meta:
         ordering = ("name",)
@@ -115,7 +116,7 @@ class Npc(models.Model):
 class Portrait(models.Model):
     character = models.ForeignKey(Character, null=True, on_delete=models.SET_NULL)
     origin = models.CharField(
-        max_length=2, choices=CharOrigin.choices, default=CharOrigin.OR
+        max_length=2, choices=PortraitOrigin.choices, default=PortraitOrigin.OR
     )
     description = models.CharField(max_length=200, blank=True, default="")
     source = models.CharField(max_length=100, blank=True, default="")

@@ -2,3 +2,5 @@
 db.sqlite3
 notes.md
 ienpcs/media/
+.vscode/
+.venv/
