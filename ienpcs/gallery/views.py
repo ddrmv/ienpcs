@@ -12,7 +12,7 @@ class GameListView(generic.ListView):
 
 
 def game_detail(request, slug):
-    game = get_object_or_404(Game, codename=slug)
+    game = get_object_or_404(Game, slug=slug)
     unique_origins = ["OR", "BE", "MO"]
     origin_map = {"OR": "Original", "BE": "Beamdog", "MO": "Mods"}
     origin_dict = {}
