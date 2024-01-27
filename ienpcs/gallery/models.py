@@ -70,6 +70,9 @@ class Character(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+    class Meta:
+        ordering = ("name",)
+
 
 class Npc(models.Model):
     class Alignment(models.TextChoices):
@@ -105,6 +108,9 @@ class Npc(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ("name",)
+
 
 class Portrait(models.Model):
     character = models.ForeignKey(Character, null=True, on_delete=models.SET_NULL)
@@ -119,6 +125,9 @@ class Portrait(models.Model):
 
     def __str__(self):
         return f"{self.character.name} - {self.description[:20]}"
+
+    class Meta:
+        ordering = ("-created",)
 
 
 class NpcInGame(models.Model):
