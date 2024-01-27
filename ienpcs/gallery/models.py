@@ -34,9 +34,13 @@ class Game(models.Model):
     name = models.CharField(max_length=50)
     codename = models.CharField(max_length=10)
     short_name = models.CharField(max_length=10)
+    order = models.SmallIntegerField()
 
     def __str__(self):
         return self.codename
+
+    class Meta:
+        ordering = ("order",)
 
 
 class CharOrigin(models.TextChoices):
