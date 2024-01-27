@@ -5,10 +5,24 @@
 {% endblock %}
 
 {% block content %}
-  {% for game in game_list %}
-    <p>{{ game.name }}</p>
-    {% for npc in game.npc_set.all %}
-      {{ npc.name }} |
+  <div id="gameGrid" class="container mt-4 pb-5" style="max-width: 1150px;">
+    <ul class="nav justify-content-center">
+      {% for game in game_list %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'game_detail' game.codename %}">{{ game.short_name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% for game in game_list %}
+      <div class="row pt-5">
+        <div class="col-12">
+          <h4 class="border-bottom mb-4 pb-2"><a class="text-decoration-none" href="{% url 'game_detail' game.codename %}">{{ game.name }}</a></h4>
+        </div>
+      </div>
+      {% for npc in game.npc_set.all %}
+        {{ npc.name }} |
+      {% endfor %}
     {% endfor %}
-  {% endfor %}
+  </div>
 {% endblock %}

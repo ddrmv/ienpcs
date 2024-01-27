@@ -1,5 +1,5 @@
 {% extends 'gallery/base.html' %}
-{% load gallery_extras %}
+{% comment %} {% load gallery_extras %} {% endcomment %}
 
 {% block title %}
   <title>{{ game.name }}</title>
@@ -9,7 +9,7 @@
   <div id="portraitGrid" class="container mt-4 pb-5 shadow bg-body-tertiary" style="max-width: 1150px;">
     <div class="row px-4 pt-5">
       <div class="col-12">
-        <h2 class="text-uppercase border-bottom mb-4 pb-2">{{ game.name }}</h2>
+        <h2 class="border-bottom mb-4 pb-2"><a class="text-decoration-none" href="{% url 'game_list' %}">{{ game.name }}</a></h2>
       </div>
     </div>
     {% for origin, npc_in_game_qset in origin_dict.items %}

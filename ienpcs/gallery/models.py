@@ -33,6 +33,7 @@ def char_portrait_with_hash(instance, filename):
 class Game(models.Model):
     name = models.CharField(max_length=50)
     codename = models.CharField(max_length=10)
+    short_name = models.CharField(max_length=10)
 
     def __str__(self):
         return self.codename
