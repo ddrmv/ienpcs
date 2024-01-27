@@ -35,6 +35,9 @@ class Game(models.Model):
     slug = models.CharField(max_length=10)
     short_name = models.CharField(max_length=10)
     order = models.SmallIntegerField()
+    title_screen = models.ImageField(upload_to="games", null=True)
+    developer = models.CharField(max_length=100)
+    release_year = models.SmallIntegerField()
 
     def __str__(self):
         return self.slug
