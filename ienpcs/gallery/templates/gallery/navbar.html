@@ -29,6 +29,11 @@
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true">Login</a>
         </li>
+        {% if debug %}
+          <li class="nav-item">
+            <a class="nav-link" href="http://127.0.0.1:8000/admin/">Admin</a>
+          </li>
+        {% endif %}
       </ul>
       <form method="post" action="{% url 'toggle_theme' %}">
         {% csrf_token %}
