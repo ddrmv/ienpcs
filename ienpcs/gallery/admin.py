@@ -72,12 +72,16 @@ class PortraitAdmin(admin.ModelAdmin):
     list_display = [
         "character",
         "origin",
-        "description",
+        "turncated_description",
         "source",
         "created",
         "web_image",
-        "zip_file",
     ]
+    list_filter = ["origin"]
+    search_fields = ["character__name"]
+
+    def turncated_description(self, obj):
+        return obj.description[:20]
 
 
 admin.site.register(Game, GameAdmin)
