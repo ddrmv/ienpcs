@@ -5,5 +5,30 @@
 {% endblock %}
 
 {% block content %}
-  <h2>Characters</h2>
+  <div class="container" style="max-width: 1150px;">
+    <div class="row pt-5">
+    <div class="col-12">
+      <h2 class="border-bottom mb-4 pb-2"><a class="text-decoration-none" href="#">Playable characters of IE games</a></h2>
+      <p>This is a list of characters who can join the player's party. Some of them are joinable party members from the original games, others exist in the games and have been converted to party members by modders, while others still have been created by modders from scratch. Go to the character's page for more information and available portraits.</p>
+    </div>
+  </div>
+  <div class="container mt-4 pt-5 pb-4 shadow-sm bg-body-tertiary">
+    <div class="row justify-content-center">
+      {% for ch in character_list %}
+        <div class="col-auto mb-4">
+          <div class="card h-100" style="width: 210px;">
+            <img src="{{ ch.img_170.url }}" class="card-img-top" alt="Portrait of {{ ch.name }}" />
+            <div class="card-body">
+              <h5 class="card-title">{{ ch.name }}</h5>
+              <p class="card-text">{{ ch.description }}</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-body-secondary"><a href="#TODO">link</a></small>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
 {% endblock %}

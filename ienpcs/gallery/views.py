@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.views import generic
 
-from .models import Game, NpcInGame
+from .models import Character, Game, NpcInGame
 
 
 class GameListView(generic.ListView):
@@ -30,7 +30,7 @@ def game_detail(request, slug):
 class CharacterListView(generic.ListView):
     template_name = "gallery/character_list.html"
     context_object_name = "character_list"
-    queryset = Game.objects.all()
+    queryset = Character.objects.all()
 
 
 def link_list(request):

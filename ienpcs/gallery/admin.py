@@ -4,7 +4,7 @@ from .models import Character, Game, Npc, NpcInGame, Portrait
 
 
 class CharacterAdmin(admin.ModelAdmin):
-    list_display = ["name", "origin", "turncated_description"]
+    list_display = ["name", "slug", "origin", "turncated_description"]
     list_filter = ["origin"]
     search_fields = ["name"]
 
