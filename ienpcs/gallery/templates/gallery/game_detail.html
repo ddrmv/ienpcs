@@ -1,5 +1,4 @@
 {% extends 'gallery/base.html' %}
-{% comment %} {% load gallery_extras %} {% endcomment %}
 
 {% block title %}
   <title>{{ game.name }}</title>
@@ -15,7 +14,7 @@
     {% for origin, npc_in_game_qset in origin_dict.items %}
       <div class="row px-4 pt-5">
         <div class="col-12">
-          <h3 class="border-bottom mb-4 pb-2">{{ origin }} ({{ npc_in_game_qset.count }})</h3>
+          <h3 class="border-bottom mb-4 pb-2">{{ origin }} NPCs ({{ npc_in_game_qset.count }})</h3>
         </div>
       </div>
       <div class="row justify-content-center">
@@ -24,7 +23,7 @@
             <div class="card h-100" style="width: 20rem;">
               <div class="row g-0">
                 <div class="col" style="max-width: 120px;">
-                  <img src="{{ npc_in_game.npc.web_image.url }}" class="rounded-start" alt="..." />
+                  <img src="{{ npc_in_game.npc.web_image.url }}" width="110" height="170" class="rounded-start" alt="..." />
                 </div>
                 <div class="col">
                   <div class="card-body p-2">

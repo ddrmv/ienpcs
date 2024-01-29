@@ -3,11 +3,25 @@ from django.contrib import admin
 from .models import Character, Game, Npc, NpcInGame, Portrait
 
 
-class NpcInGameAdmin(admin.ModelAdmin):
-    fields = ["npc", "game", "origin"]
-    list_display = ["npc", "game", "origin"]
-    list_filter = ["game__slug"]
-    search_fields = ["npc__name"]
+class CharacterAdmin(admin.ModelAdmin):
+    list_display = ["name", "origin", "turncated_description"]
+    list_filter = ["origin"]
+    search_fields = ["name"]
+
+    def turncated_description(self, obj):
+        return obj.description[:50]
+
+
+class GameAdmin(admin.ModelAdmin):
+    list_display = [
+        "slug",
+        "short_name",
+        "name",
+        "order",
+        "title_screen",
+        "developer",
+        "release_year",
+    ]
 
 
 class NpcAdmin(admin.ModelAdmin):
@@ -47,8 +61,27 @@ class NpcAdmin(admin.ModelAdmin):
     search_fields = ["name"]
 
 
-admin.site.register(Game)
+class NpcInGameAdmin(admin.ModelAdmin):
+    fields = ["npc", "game", "origin"]
+    list_display = ["npc", "game", "origin"]
+    list_filter = ["game__slug"]
+    search_fields = ["npc__name"]
+
+
+class PortraitAdmin(admin.ModelAdmin):
+    list_display = [
+        "character",
+        "origin",
+        "description",
+        "source",
+        "created",
+        "web_image",
+        "zip_file",
+    ]
+
+
+admin.site.register(Game, GameAdmin)
 admin.site.register(Npc, NpcAdmin)
 admin.site.register(NpcInGame, NpcInGameAdmin)
-admin.site.register(Portrait)
-admin.site.register(Character)
+admin.site.register(Portrait, PortraitAdmin)
+admin.site.register(Character, CharacterAdmin)

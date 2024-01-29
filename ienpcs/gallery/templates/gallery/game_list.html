@@ -23,9 +23,7 @@
       </div>
       <div class="row">
         <div class="col-4" style="min-width: 350px;">
-          <a href="{% url 'game_detail' game.slug %}">
-          <img src="{{ game.title_screen.url }}" class="border border-3 mb-3" alt="Game title screen for {{ game.name }}" />
-          </a>
+          <a href="{% url 'game_detail' game.slug %}"><img src="{{ game.title_screen.url }}" class="border border-3 mb-3" alt="Game title screen for {{ game.name }}" /></a>
         </div>
         <div class="col-8" style="min-width: 25rem;">
           <table class="table table-striped">
@@ -43,6 +41,7 @@
                 <td class="border-bottom-0 pe-4">
                   {% for npc in game.npc_set.all %}
                     {{ npc.name }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}No NPCs for this game.
                   {% endfor %}
                 </td>
               </tr>
