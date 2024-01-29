@@ -61,6 +61,7 @@ class PortraitOrigin(models.TextChoices):
 
 class Character(models.Model):
     name = models.CharField(max_length=100)
+    slug = models.SlugField()
     origin = models.CharField(
         max_length=2, choices=CharOrigin.choices, default=CharOrigin.OR
     )
