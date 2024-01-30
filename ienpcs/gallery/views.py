@@ -33,6 +33,16 @@ class CharacterListView(generic.ListView):
     queryset = Character.objects.all()
 
 
+def character_detail(request, slug):
+    character = get_object_or_404(Character, slug=slug)
+    npcs = character.npc_set.all()
+    for npc in npcs:
+        npc.npc_in_games = NpcInGame.objects.filter(npc=npc)
+    return render(
+        request, "gallery/character_detail.html", {"character": character, "npcs": npcs}
+    )
+
+
 def link_list(request):
     link_list_dict = {"link1": "placeholder1", "link2": "placeholder2"}
     context = {"link_list_dict": link_list_dict}
