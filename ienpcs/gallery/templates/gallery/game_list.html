@@ -7,7 +7,7 @@
 {% block content %}
   <div id="gameGrid" class="container mt-4 pb-5" style="max-width: 1150px;">
     {% comment %}Row with snort names for navigation.{% endcomment %}
-    <ul class="nav justify-content-center">
+    <ul class="nav nav-underline justify-content-center">
       {% for game in game_list %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'game_detail' game.slug %}">{{ game.short_name }}</a>
