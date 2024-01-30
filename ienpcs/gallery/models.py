@@ -75,6 +75,17 @@ class Character(models.Model):
         ordering = ("name",)
 
 
+class Link(models.Model):
+    description = models.CharField(max_length=50)
+    url = models.URLField()
+
+    def __str__(self):
+        return self.description
+
+    class Meta:
+        ordering = ("description",)
+
+
 class Npc(models.Model):
     class Alignment(models.TextChoices):
         CG = "CG", _("Chaotic Good")

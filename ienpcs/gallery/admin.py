@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Character, Game, Npc, NpcInGame, Portrait
+from .models import Character, Game, Link, Npc, NpcInGame, Portrait
 
 
 class CharacterAdmin(admin.ModelAdmin):
@@ -21,6 +21,13 @@ class GameAdmin(admin.ModelAdmin):
         "title_screen",
         "developer",
         "release_year",
+    ]
+
+
+class LinkAdmin(admin.ModelAdmin):
+    list_display = [
+        "description",
+        "url",
     ]
 
 
@@ -85,6 +92,7 @@ class PortraitAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Game, GameAdmin)
+admin.site.register(Link, LinkAdmin)
 admin.site.register(Npc, NpcAdmin)
 admin.site.register(NpcInGame, NpcInGameAdmin)
 admin.site.register(Portrait, PortraitAdmin)
