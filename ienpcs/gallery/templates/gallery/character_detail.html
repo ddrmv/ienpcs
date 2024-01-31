@@ -10,13 +10,12 @@
       <div class="col-12">
         <h2 class="border-bottom mb-4 pb-2"><a class="text-decoration-none" href="{% url 'character_list' %}">{{ character.name }}</a></h2>
         <div class="row">
-          <div class="col-5">
+          <div class="col-4">
             <p>{{ character.description }}</p>
-            <p>
-              <strong>Origin:</strong> {{ character.get_origin_display }}
-            </p>
+            <br />
+            <p>Character origin - {{ character.get_origin_display }}.</p>
           </div>
-          <div class="col-7">
+          <div class="col-8">
             <div class="card">
               <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs" id="npc-in-game-list" role="tablist">
@@ -48,7 +47,12 @@
 
                       {% comment %}Table with stats{% endcomment %}
                       <div class="row">
-                        <div class="col-6">
+
+                        <div class="col-3">
+                          <img src="{{ npc.web_image.url }}" alt="Portrait of {{ npc.name }}" />
+                        </div>
+
+                        <div class="col-4">
                           <table class="table table-sm  table-borderless">
                             <tbody>
                               <tr>
@@ -73,7 +77,7 @@
                           </table>
                         </div>
                     
-                        <div class="col-6">
+                        <div class="col-5">
                           <table class="table table-sm table-borderless">
                             <tbody>
                               <tr>
@@ -100,10 +104,10 @@
                                 <th scope="row" class="text-muted">Charisma</th>
                                 <td>{{ npc.cha }}</td>
                               </tr>
-                              
                             </tbody>
                           </table>
                         </div>
+
                       </div>
                       {% comment %} <a href="#" class="btn btn-secondary btn-sm">Button</a> {% endcomment %}
 
@@ -121,6 +125,26 @@
         <div class="col-12">
           <h4 class="border-bottom mb-4 pb-2">Portraits</h4>
         </div>
+      </div>
+
+      <div class="row justify-content-center">
+        {% for pt in character.portrait_set.all %}
+          <div class="col-auto mb-4">
+            <div class="card h-100" style="width: 210px;">
+              <a href="#"><img src="{{ pt.web_image.url }}" class="card-img-top" alt="A character portrait" /></a>
+              <div class="card-body">
+                <p class="card-text">{{ pt.get_origin_display }} - {{ pt.description }}</p>
+              </div>
+              <div class="card-footer">
+                <small class="text-body-secondary"><a href="{{ pt.source }}">Source</a></small>
+                {% if pt.zip_file %}
+                  |
+                  <small class="text-body-secondary"><a href="{{ pt.zip_file.url }}">Zip file</a></small>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
       </div>
     </div>
   </div>

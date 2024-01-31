@@ -131,10 +131,10 @@ class Portrait(models.Model):
         max_length=2, choices=PortraitOrigin.choices, default=PortraitOrigin.OR
     )
     description = models.CharField(max_length=200, blank=True, default="")
-    source = models.CharField(max_length=100, blank=True, default="")
+    source = models.URLField(blank=True, default="")
     created = models.DateTimeField(default=timezone.now, blank=True)
     web_image = models.ImageField(upload_to=web_image_with_hash)
-    zip_file = models.FileField(upload_to=zip_file_with_hash)
+    zip_file = models.FileField(upload_to=zip_file_with_hash, blank=True, null=True)
 
     def __str__(self):
         return f"{self.character.name} - {self.description[:20]}"
