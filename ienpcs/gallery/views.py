@@ -1,5 +1,7 @@
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import generic
 
 from .models import Character, Game, Link, NpcInGame
@@ -51,6 +53,32 @@ class LinkListView(generic.ListView):
 
 def about(request):
     return render(request, "gallery/about.html", {})
+
+
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, "You have successfully logged in!")
+            return redirect("game_list")
+        else:
+            messages.error(request, "Error: Login unsuccessful.")
+            return redirect("login")
+    else:
+        return render(request, "gallery/login.html", {})
+
+
+def logout_user(request):
+    if request.user.is_authenticated:
+        logout(request)
+        messages.success(request, "You have successfully logged out!")
+        return redirect("game_list")
+    else:
+        messages.error(request, "Error: You are not currently logged in!")
+        return redirect("login")
 
 
 def toggle_theme(request):

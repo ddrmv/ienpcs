@@ -6,32 +6,46 @@
       {% comment %}keep prettier-ignore, if removed the django-formatter addon deletes good code{% endcomment %}
       {# prettier-ignore #}
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'game_list' %}active{% endif %}"
           aria-selected="{% if request.resolver_match.url_name == 'game_list' %}true{% else %}false{% endif %}"
           href="{% url 'game_list' %}">Games</a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'character_list' %}active{% endif %}"
           aria-selected="{% if request.resolver_match.url_name == 'character_list' %}true{% else %}false{% endif %}"
           href="{% url 'character_list' %}">Characters</a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'link_list' %}active{% endif %}"
           aria-selected="{% if request.resolver_match.url_name == 'link_list' %}true{% else %}false{% endif %}"
           href="{% url 'link_list' %}">Links</a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}"
           aria-selected="{% if request.resolver_match.url_name == 'about' %}true{% else %}false{% endif %}"
           href="{% url 'about' %}">About</a>
         </li>
+
+        {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Login</a>
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
         </li>
+        {% else %}
+        <li class="nav-item" >
+          <a class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}"
+          aria-selected="{% if request.resolver_match.url_name == 'login' %}true{% else %}false{% endif %}"
+          href="{% url 'login' %}">Login</a>
+        </li>
+        {% endif %}
+
         {% if debug %}
           <li class="nav-item">
-            <a class="nav-link" href="http://127.0.0.1:8000/admin/">Admin</a>
+            <a class="nav-link" href="http://127.0.0.1:8000/admin/" target="_blank">- Admin -</a>
           </li>
         {% endif %}
       </ul>

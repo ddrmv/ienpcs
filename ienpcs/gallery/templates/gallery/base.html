@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="{{ request.session.theme|default:'light' }}"  style="overflow-y: scroll;">
+<html lang="en" data-bs-theme="{{ request.session.theme|default:'light' }}" style="overflow-y: scroll;">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,6 +10,22 @@
   </head>
   <body>
     {% include 'gallery/navbar.html' %}
+
+    {% if messages %}
+      <div class="container" style="max-width: 1150px;">
+        <div class="row justify-content-center">
+          <div class="col-5">
+            {% for message in messages %}
+              <div class="alert alert-secondary alert-dismissible show mt-5" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
     {% block content %}
 
     {% endblock %}
