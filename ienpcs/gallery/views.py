@@ -73,7 +73,9 @@ def login_user(request):
 
 def logout_user(request):
     if request.user.is_authenticated:
+        theme = request.session['theme']
         logout(request)
+        request.session['theme'] = theme
         messages.success(request, "You have successfully logged out!")
         return redirect("game_list")
     else:
