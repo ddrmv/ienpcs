@@ -11,7 +11,10 @@
         <h2 class="border-bottom mb-4 pb-2"><a class="text-decoration-none" href="{% url 'character_list' %}">{{ character.name }}</a></h2>
         <div class="row">
           <div class="col-5">
-            <p>Paragraph</p>
+            <p>{{ character.description }}</p>
+            <p>
+              <strong>Origin:</strong> {{ character.get_origin_display }}
+            </p>
           </div>
           <div class="col-7">
             <div class="card">
@@ -26,7 +29,7 @@
                         {% for relation in npc.npc_in_games %}
                           {{ relation.game.short_name}}{% if not forloop.last %} - {% endif %}
                         {% endfor %}
-                      </a>
+                        </a>
                       </li>
                     {% endfor %}
                   {% else %}
@@ -42,8 +45,68 @@
                     {% comment %}if unignored django-formatter addon deletes "active" in forloop.first{% endcomment %}
                     {# prettier-ignore #}
                     <div class="tab-pane {% if forloop.first %}active{% endif %}" id="npc-v{{ forloop.counter }}" role="tabpanel">
-                      <p class="card-text">This is npc-v{{ forloop.counter }}.</p>
-                      <a href="#" class="btn btn-secondary btn-sm">Button</a>
+
+                      {% comment %}Table with stats{% endcomment %}
+                      <div class="row">
+                        <div class="col-6">
+                          <table class="table table-sm  table-borderless">
+                            <tbody>
+                              <tr>
+                                <th scope="col" class="text-muted">Class</th>
+                              </tr>
+                              <tr>
+                                <td>&nbsp;&nbsp;&nbsp;- {{ npc.adnd_class }}</td>
+                              </tr>
+                              <tr>
+                                <th scope="col" class="text-muted">Alignment</th>
+                              </tr>
+                              <tr>
+                                <td>&nbsp;&nbsp;&nbsp;- {{ npc.get_alignment_display }}</td>
+                              </tr>
+                              <tr>
+                                <th scope="col" class="text-muted">Race</th>
+                              </tr>
+                              <tr>
+                                <td>&nbsp;&nbsp;&nbsp;- {{ npc.race }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                    
+                        <div class="col-6">
+                          <table class="table table-sm table-borderless">
+                            <tbody>
+                              <tr>
+                                <th scope="row" class="col-6 text-muted">Strength</th>
+                                <td>{{ npc.str }}{% if npc.str_percentile %}/{{ npc.str_percentile }}{% endif %}</td> 
+                              </tr>
+                              <tr>
+                                <th scope="row" class="text-muted">Dexterity</th>
+                                <td>{{ npc.dex }}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row" class="text-muted">Constitution</th>
+                                <td>{{ npc.con }}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row" class="text-muted">Intelligence</th>
+                                <td>{{ npc.int }}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row" class="text-muted">Wisdom</th>
+                                <td>{{ npc.wis }}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row" class="text-muted">Charisma</th>
+                                <td>{{ npc.cha }}</td>
+                              </tr>
+                              
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      {% comment %} <a href="#" class="btn btn-secondary btn-sm">Button</a> {% endcomment %}
+
                     </div>
                   {% endfor %}
                 </div>
