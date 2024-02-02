@@ -73,14 +73,22 @@ def login_user(request):
 
 def logout_user(request):
     if request.user.is_authenticated:
-        theme = request.session['theme']
+        theme = request.session["theme"]
         logout(request)
-        request.session['theme'] = theme
+        request.session["theme"] = theme
         messages.success(request, "You have successfully logged out!")
         return redirect("game_list")
     else:
         messages.error(request, "Error: You are not currently logged in!")
         return redirect("login")
+
+
+def register_user(request):
+    if request.user.is_authenticated:
+        messages.error(request, "Error: You are already registered and logged in!")
+        return redirect("index")
+    else:
+        return render(request, "gallery/register.html", {})
 
 
 def toggle_theme(request):

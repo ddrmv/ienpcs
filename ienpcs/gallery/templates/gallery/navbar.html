@@ -49,6 +49,11 @@
             aria-selected="{% if request.resolver_match.url_name == 'login' %}true{% else %}false{% endif %}"
             href="{% url 'login' %}">Login</a>
           </li>
+          <li class="nav-item" >
+            <a class="nav-link {% if request.resolver_match.url_name == 'register' %}active{% endif %}"
+            aria-selected="{% if request.resolver_match.url_name == 'register' %}true{% else %}false{% endif %}"
+            href="{% url 'register' %}">Register</a>
+          </li>
         {% endif %}
       </ul>
       <form method="post" action="{% url 'toggle_theme' %}">
