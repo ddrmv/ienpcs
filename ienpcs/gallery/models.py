@@ -75,6 +75,19 @@ class Character(models.Model):
         ordering = ("name",)
 
 
+class InvitationCode(models.Model):
+    code = models.CharField(max_length=100)
+    note = models.CharField(max_length=100, null=True, blank=True)
+    in_use = models.BooleanField(default=True)
+    max_uses = models.PositiveSmallIntegerField(default=20)
+    times_used = models.PositiveSmallIntegerField(default=0)
+    added = models.DateTimeField(default=timezone.now, blank=True)
+    last_used = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ("added", )
+
+
 class Link(models.Model):
     description = models.CharField(max_length=50)
     url = models.URLField()

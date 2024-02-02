@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Character, Game, Link, Npc, NpcInGame, Portrait
+from .models import Character, Game, InvitationCode, Link, Npc, NpcInGame, Portrait
 
 
 class CharacterAdmin(admin.ModelAdmin):
@@ -22,6 +22,20 @@ class GameAdmin(admin.ModelAdmin):
         "developer",
         "release_year",
     ]
+
+
+class InvitationCodeAdmin(admin.ModelAdmin):
+    list_display = [
+        "code",
+        "note",
+        "in_use",
+        "max_uses",
+        "times_used",
+        "added",
+        "last_used",
+    ]
+    list_filter = ["in_use"]
+    search_fields = ["note"]
 
 
 class LinkAdmin(admin.ModelAdmin):
@@ -92,6 +106,7 @@ class PortraitAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Game, GameAdmin)
+admin.site.register(InvitationCode, InvitationCodeAdmin)
 admin.site.register(Link, LinkAdmin)
 admin.site.register(Npc, NpcAdmin)
 admin.site.register(NpcInGame, NpcInGameAdmin)
