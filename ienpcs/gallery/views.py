@@ -89,48 +89,49 @@ def register_user(request):
     if request.user.is_authenticated:
         messages.error(request, "Error: You are already registered and logged in!")
         return redirect("index")
-    else:
-        if request.method == "POST":
-            form = SignUpForm(request.POST)
-            if form.is_valid():
-                # Check invitation is valid and not used over limit
-                code_input = form.cleaned_data["invitation_code"]
-                try:
-                    InvitationCode.objects.get(code=code_input)
-                except InvitationCode.DoesNotExist:
-                    messages.error(request, "Invalid invitation code.")
-                    form = SignUpForm()
-                    return render(request, "gallery/register.html", {"form": form})
-                code = InvitationCode.objects.get(code=code_input)
-                if code.times_used >= code.max_uses:
-                    messages.error(
-                        request,
-                        "The invitation code has been used too many times, please request another.",
-                    )
-                    form = SignUpForm()
-                    return render(request, "gallery/register.html", {"form": form})
-
-                # Update times invitation has been used
-                code.times_used += 1
-                code.last_used = timezone.now()
-                code.save()
-
-                # Save new user in database and log in
-                form.save()
-                username = form.cleaned_data["username"]
-                password = form.cleaned_data["password1"]
-                user = authenticate(username=username, password=password)
-                theme = request.session.get("theme", "light")
-                login(request, user)
-                request.session["theme"] = theme
-                messages.success(
-                    request, "You have successfully registered and have been logged in."
-                )
-                return redirect("index")
-            else:
-                form = SignUpForm()
-                return render(request, "gallery/register.html", {"form": form})
+    
+    if request.method != "POST":
         form = SignUpForm()
+        return render(request, "gallery/register.html", {"form": form})
+
+    # else (request.method == "POST")
+    form = SignUpForm(request.POST)
+    if form.is_valid():
+        # Check invitation is valid and not used over limit
+        code_input = form.cleaned_data["invitation_code"]
+        try:
+            InvitationCode.objects.get(code=code_input)
+        except InvitationCode.DoesNotExist:
+            messages.error(request, "Invalid invitation code.")
+            form = SignUpForm()
+            return render(request, "gallery/register.html", {"form": form})
+        code = InvitationCode.objects.get(code=code_input)
+        if code.times_used >= code.max_uses:
+            messages.error(
+                request,
+                "The invitation code has been used too many times, please request another.",
+            )
+            form = SignUpForm()
+            return render(request, "gallery/register.html", {"form": form})
+
+        # Update times invitation has been used
+        code.times_used += 1
+        code.last_used = timezone.now()
+        code.save()
+
+        # Save new user in database and log in
+        form.save()
+        username = form.cleaned_data["username"]
+        password = form.cleaned_data["password1"]
+        user = authenticate(username=username, password=password)
+        theme = request.session.get("theme", "light")
+        login(request, user)
+        request.session["theme"] = theme
+        messages.success(
+            request, "You have successfully registered and have been logged in."
+        )
+        return redirect("index")
+    else:
         return render(request, "gallery/register.html", {"form": form})
 
 
