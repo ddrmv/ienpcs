@@ -9,6 +9,7 @@ urlpatterns = [
     path("characters/", views.CharacterListView.as_view(), name="character_list"),
     path("character/<slug:slug>", views.character_detail, name="character_detail"),
     path("party/", views.party_detail, name="party_detail"),
+    path("party_remove_npc/<int:id>/", views.party_remove_npc, name="party_remove_npc"),
     path("links/", views.LinkListView.as_view(), name="link_list"),
     path("about/", views.about, name="about"),
     path("login/", views.login_user, name="login"),

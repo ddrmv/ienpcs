@@ -15,7 +15,7 @@
           </p>
         {% endif %}
         <p>
-          Manage a party of up to 6 PCs and NPCs. You can select NPCs from games pages to add to a list of up to 20 to select from. You can create up to ten PCs by pressing Add PC. Pressing 'Remove' on an NPC removes it from the selection table, pressing 'Delete' on a PC permanently <strong>deletes</strong> the PC!
+          Manage a party of up to 6 PCs and NPCs. You can select NPCs from games pages to add to a list of up to 20 to select from. You can create up to ten PCs by pressing Add PC. Pressing 'Remove' on an NPC removes it from the selection table, pressing 'Del' on a PC permanently <strong>deletes</strong> the PC!
         </p>
       </div>
     </div>
@@ -28,24 +28,24 @@
             <caption>NPCs selection (max 20)</caption>
             <thead>
               <tr>
-                <th class="text-muted" scope="col-3" style="width:15%">Name</th>
-                <th class="text-muted" scope="col-1" style="width:15%">Class</th>
-                <th class="text-muted" scope="col-1" style="width:14%">Race</th>
-                <th class="text-muted" scope="col-1" style="width:14%">Alignment</th>
-                <th class="text-muted" scope="col-1" style="width:6%">Str</th>
-                <th class="text-muted" scope="col-1" style="width:6%">Dex</th>
-                <th class="text-muted" scope="col-1" style="width:6%">Con</th>
-                <th class="text-muted" scope="col-1" style="width:6%">Int</th>
-                <th class="text-muted" scope="col-1" style="width:6%">Wis</th>
-                <th class="text-muted" scope="col-1" style="width:6%">Cha</th>
-                <th class="text-muted" scope="col-1" style="width:6%">Edit</th>
+                <th class="text-muted" scope="col" style="width:15%">Name</th>
+                <th class="text-muted" scope="col" style="width:15%">Class</th>
+                <th class="text-muted" scope="col" style="width:14%">Race</th>
+                <th class="text-muted" scope="col" style="width:14%">Alignment</th>
+                <th class="text-muted" scope="col" style="width:6%">Str</th>
+                <th class="text-muted" scope="col" style="width:6%">Dex</th>
+                <th class="text-muted" scope="col" style="width:6%">Con</th>
+                <th class="text-muted" scope="col" style="width:6%">Int</th>
+                <th class="text-muted" scope="col" style="width:6%">Wis</th>
+                <th class="text-muted" scope="col" style="width:6%">Cha</th>
+                <th class="text-muted" scope="col" style="width:6%">Edit</th>
               </tr>
             </thead>
 
             <tbody>
               {% for npc in npcs %}
                 <tr>
-                  <td>{{ npc.name }} {{ npc.id }}</td>
+                  <td>{{ npc.name }}</td>
                   <td>{{ npc.adnd_class }}</td>
                   <td>{{ npc.race }}</td>
                   <td>{{ npc.get_alignment_display }}</td>
@@ -60,7 +60,7 @@
                   <td>{{ npc.wis }}</td>
                   <td>{{ npc.cha }}</td>
                   <td>
-                    <a href="#"><small>Remove</small></a>
+                    <a href="{% url 'party_remove_npc' npc.id %}"><small>Remove</small></a>
                   </td>
                 </tr>
               {% endfor %}
@@ -71,24 +71,24 @@
             <caption>PCs selection (max 10)</caption>
             <thead>
               <tr>
-                <th class="text-muted" scope="col-3" style="width:15%">Name</th>
-                <th class="text-muted" scope="col-1" style="width:15%">Class</th>
-                <th class="text-muted" scope="col-1" style="width:14%">Race</th>
-                <th class="text-muted" scope="col-1" style="width:14%">Alignment</th>
-                <th class="text-muted" scope="col-1" style="width:6%">Str</th>
-                <th class="text-muted" scope="col-1" style="width:6%">Dex</th>
-                <th class="text-muted" scope="col-1" style="width:6%">Con</th>
-                <th class="text-muted" scope="col-1" style="width:6%">Int</th>
-                <th class="text-muted" scope="col-1" style="width:6%">Wis</th>
-                <th class="text-muted" scope="col-1" style="width:6%">Cha</th>
-                <th class="text-muted" scope="col-1" style="width:6%">Edit</th>
+                <th class="text-muted" scope="col" style="width:15%">Name</th>
+                <th class="text-muted" scope="col" style="width:15%">Class</th>
+                <th class="text-muted" scope="col" style="width:14%">Race</th>
+                <th class="text-muted" scope="col" style="width:14%">Alignment</th>
+                <th class="text-muted" scope="col" style="width:6%">Str</th>
+                <th class="text-muted" scope="col" style="width:6%">Dex</th>
+                <th class="text-muted" scope="col" style="width:6%">Con</th>
+                <th class="text-muted" scope="col" style="width:6%">Int</th>
+                <th class="text-muted" scope="col" style="width:6%">Wis</th>
+                <th class="text-muted" scope="col" style="width:6%">Cha</th>
+                <th class="text-muted" scope="col" style="width:6%">Edit</th>
               </tr>
             </thead>
 
             <tbody>
               {% for pc in pcs %}
                 <tr>
-                  <td>{{ pc.name }} {{ pc.id }}</td>
+                  <td>{{ pc.name }}</td>
                   <td>{{ pc.adnd_class }}</td>
                   <td>{{ pc.race }}</td>
                   <td>{{ pc.alignment }}</td>
@@ -103,7 +103,8 @@
                   <td>{{ pc.wis }}</td>
                   <td>{{ pc.cha }}</td>
                   <td>
-                    <a href="#"><small>Delete</small></a>
+                    <a href="#"><small>Edit</small></a>
+                    <a href="#"><small>Del</small></a>
                   </td>
                 </tr>
               {% endfor %}

@@ -147,6 +147,14 @@ def party_detail(request):
     return render(request, "gallery/party_detail.html", context)
 
 
+def party_remove_npc(request, id):
+    if request.user.is_authenticated:
+        party = Party.objects.get(user=request.user)
+        npc = Npc.objects.get(id=id)
+        party.npcs.remove(npc)
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+
 def toggle_theme(request):
     if request.session.get("theme", "light") == "dark":
         request.session["theme"] = "iight"
