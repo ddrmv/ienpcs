@@ -3,8 +3,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import generic
+from django.utils import timezone
 
-from .models import Character, Game, Link, NpcInGame
+from .forms import SignUpForm
+from .models import Character, Game, InvitationCode, Link, NpcInGame
 
 
 class GameListView(generic.ListView):
@@ -73,7 +75,7 @@ def login_user(request):
 
 def logout_user(request):
     if request.user.is_authenticated:
-        theme = request.session["theme"]
+        theme = request.session.get("theme", "light")
         logout(request)
         request.session["theme"] = theme
         messages.success(request, "You have successfully logged out!")
@@ -88,7 +90,48 @@ def register_user(request):
         messages.error(request, "Error: You are already registered and logged in!")
         return redirect("index")
     else:
-        return render(request, "gallery/register.html", {})
+        if request.method == "POST":
+            form = SignUpForm(request.POST)
+            if form.is_valid():
+                # Check invitation is valid and not used over limit
+                code_input = form.cleaned_data["invitation_code"]
+                try:
+                    InvitationCode.objects.get(code=code_input)
+                except InvitationCode.DoesNotExist:
+                    messages.error(request, "Invalid invitation code.")
+                    form = SignUpForm()
+                    return render(request, "gallery/register.html", {"form": form})
+                code = InvitationCode.objects.get(code=code_input)
+                if code.times_used >= code.max_uses:
+                    messages.error(
+                        request,
+                        "The invitation code has been used too many times, please request another.",
+                    )
+                    form = SignUpForm()
+                    return render(request, "gallery/register.html", {"form": form})
+
+                # Update times invitation has been used
+                code.times_used += 1
+                code.last_used = timezone.now()
+                code.save()
+
+                # Save new user in database and log in
+                form.save()
+                username = form.cleaned_data["username"]
+                password = form.cleaned_data["password1"]
+                user = authenticate(username=username, password=password)
+                theme = request.session.get("theme", "light")
+                login(request, user)
+                request.session["theme"] = theme
+                messages.success(
+                    request, "You have successfully registered and have been logged in."
+                )
+                return redirect("index")
+            else:
+                form = SignUpForm()
+                return render(request, "gallery/register.html", {"form": form})
+        form = SignUpForm()
+        return render(request, "gallery/register.html", {"form": form})
 
 
 def toggle_theme(request):
