@@ -9,7 +9,7 @@
     {% comment %}Row with snort names for navigation.{% endcomment %}
     <ul class="nav nav-underline justify-content-center">
       {% for game in game_list %}
-        <li class="nav-item">
+        <li class="nav-item border-bottom">
           <a class="nav-link" href="{% url 'game_detail' game.slug %}">{{ game.short_name }}</a>
         </li>
       {% endfor %}
