@@ -8,6 +8,8 @@ from django.views import generic
 from .forms import SignUpForm
 from .models import Character, Game, InvitationCode, Link, Npc, NpcInGame, Party, Pc
 
+MAX_NPCS_PER_PARTY = 20
+
 
 class GameListView(generic.ListView):
     template_name = "gallery/game_list.html"
@@ -152,6 +154,24 @@ def party_remove_npc(request, id):
         party = Party.objects.get(user=request.user)
         npc = Npc.objects.get(id=id)
         party.npcs.remove(npc)
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+
+def party_add_npc(request, id):
+    if not request.user.is_authenticated:
+        messages.error(request, "You need to be logged in to add NPCs.")
+        # return redirect("index")
+    else:
+        party = Party.objects.get(user=request.user)
+        npc = Npc.objects.get(id=id)
+        if party.npcs.count() >= MAX_NPCS_PER_PARTY:
+            messages.error(request, "Already at maximum number of NPCs in Party.")
+        elif party.npcs.filter(id=npc.id).exists():
+            messages.error(request, "NPC already in Party.")
+        else:
+            party.npcs.add(npc)
+            messages.success(request, "NPC added to Party!")
+
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
