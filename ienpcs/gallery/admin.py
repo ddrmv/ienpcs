@@ -1,6 +1,16 @@
 from django.contrib import admin
 
-from .models import Character, Game, InvitationCode, Link, Npc, NpcInGame, Portrait
+from .models import (
+    Character,
+    Game,
+    InvitationCode,
+    Link,
+    Npc,
+    NpcInGame,
+    Party,
+    Pc,
+    Portrait,
+)
 
 
 class CharacterAdmin(admin.ModelAdmin):
@@ -89,6 +99,15 @@ class NpcInGameAdmin(admin.ModelAdmin):
     search_fields = ["npc__name"]
 
 
+class PartyAdmin(admin.ModelAdmin):
+    list_display = ["user"]
+
+
+class PcAdmin(admin.ModelAdmin):
+    list_display = ["party", "name", "adnd_class", "race", "alignment"]
+    search_fields = ["name"]
+
+
 class PortraitAdmin(admin.ModelAdmin):
     list_display = [
         "character",
@@ -110,5 +129,7 @@ admin.site.register(InvitationCode, InvitationCodeAdmin)
 admin.site.register(Link, LinkAdmin)
 admin.site.register(Npc, NpcAdmin)
 admin.site.register(NpcInGame, NpcInGameAdmin)
+admin.site.register(Party, PartyAdmin)
+admin.site.register(Pc, PcAdmin)
 admin.site.register(Portrait, PortraitAdmin)
 admin.site.register(Character, CharacterAdmin)

@@ -171,7 +171,10 @@ class NpcInGame(models.Model):
 
 class Party(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    npcs = models.ManyToManyField(Npc)
+    npcs = models.ManyToManyField(Npc, blank=True)
+
+    def __str__(self):
+        return f"{ self.user.username }"
 
 
 class Pc(models.Model):

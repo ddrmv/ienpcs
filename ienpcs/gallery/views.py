@@ -6,7 +6,7 @@ from django.views import generic
 from django.utils import timezone
 
 from .forms import SignUpForm
-from .models import Character, Game, InvitationCode, Link, NpcInGame
+from .models import Character, Game, InvitationCode, Link, NpcInGame, Party
 
 
 class GameListView(generic.ListView):
@@ -100,12 +100,12 @@ def register_user(request):
         # Check invitation is valid and not used over limit
         invitation_code_input = form.cleaned_data["invitation_code"]
         try:
-            InvitationCode.objects.get(invitation=invitation_code_input)
+            InvitationCode.objects.get(code=invitation_code_input)
         except InvitationCode.DoesNotExist:
             messages.error(request, "Invalid invitation code.")
             form = SignUpForm()
             return render(request, "gallery/register.html", {"form": form})
-        invitation = InvitationCode.objects.get(invitation=invitation_code_input)
+        invitation = InvitationCode.objects.get(code=invitation_code_input)
         if invitation.times_used >= invitation.max_uses:
             messages.error(
                 request,
@@ -120,7 +120,8 @@ def register_user(request):
         invitation.save()
 
         # Save new user in database and log in
-        form.save()
+        user = form.save()
+        Party.objects.create(user=user)
         username = form.cleaned_data["username"]
         password = form.cleaned_data["password1"]
         user = authenticate(username=username, password=password)
