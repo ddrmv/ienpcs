@@ -9,13 +9,107 @@
     <div class="row pt-5">
       <div class="col-12">
         <h2 class="border-bottom mb-4 pb-2"><a class="text-decoration-none" href="#">Party management</a></h2>
-        <p>Manage a party of PCs and NPCs.</p>
+        {% if not user.is_authenticated %}
+          <p>
+            <strong>You need to be logged in to manage a party.</strong>
+          </p>
+        {% endif %}
+        <p>
+          Manage a party of up to 6 PCs and NPCs. You can select NPCs from games pages to add to a list of up to 20 to select from. You can create up to ten PCs by pressing Add PC. Pressing 'Remove' on an NPC removes it from the selection table, pressing 'Delete' on a PC permanently <strong>deletes</strong> the PC!
+        </p>
       </div>
     </div>
 
     <div class="container mt-4 pb-5 shadow-sm bg-body-tertiary">
+      <div class="row pt-5">Placeholder for 6 member party setup</div>
       <div class="row pt-5">
-        <p>Placeholder</p>
+        <div class="col-12">
+          <table class="table table-striped table-sm caption-top table-hover">
+            <caption>NPCs selection (max 20)</caption>
+            <thead>
+              <tr>
+                <th class="text-muted" scope="col-3" style="width:15%">Name</th>
+                <th class="text-muted" scope="col-1" style="width:15%">Class</th>
+                <th class="text-muted" scope="col-1" style="width:14%">Race</th>
+                <th class="text-muted" scope="col-1" style="width:14%">Alignment</th>
+                <th class="text-muted" scope="col-1" style="width:6%">Str</th>
+                <th class="text-muted" scope="col-1" style="width:6%">Dex</th>
+                <th class="text-muted" scope="col-1" style="width:6%">Con</th>
+                <th class="text-muted" scope="col-1" style="width:6%">Int</th>
+                <th class="text-muted" scope="col-1" style="width:6%">Wis</th>
+                <th class="text-muted" scope="col-1" style="width:6%">Cha</th>
+                <th class="text-muted" scope="col-1" style="width:6%">Edit</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for npc in npcs %}
+                <tr>
+                  <td>{{ npc.name }} {{ npc.id }}</td>
+                  <td>{{ npc.adnd_class }}</td>
+                  <td>{{ npc.race }}</td>
+                  <td>{{ npc.get_alignment_display }}</td>
+                  {# prettier-ignore #}
+                  <td>
+                    {{ npc.str }}{% if npc.str_percentile %}/{{ npc.str_percentile }}
+                    {% endif %}
+                  </td>
+                  <td>{{ npc.dex }}</td>
+                  <td>{{ npc.con }}</td>
+                  <td>{{ npc.int }}</td>
+                  <td>{{ npc.wis }}</td>
+                  <td>{{ npc.cha }}</td>
+                  <td>
+                    <a href="#"><small>Remove</small></a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+          <table class="table table-striped table-sm caption-top table-hover">
+            <caption>PCs selection (max 10)</caption>
+            <thead>
+              <tr>
+                <th class="text-muted" scope="col-3" style="width:15%">Name</th>
+                <th class="text-muted" scope="col-1" style="width:15%">Class</th>
+                <th class="text-muted" scope="col-1" style="width:14%">Race</th>
+                <th class="text-muted" scope="col-1" style="width:14%">Alignment</th>
+                <th class="text-muted" scope="col-1" style="width:6%">Str</th>
+                <th class="text-muted" scope="col-1" style="width:6%">Dex</th>
+                <th class="text-muted" scope="col-1" style="width:6%">Con</th>
+                <th class="text-muted" scope="col-1" style="width:6%">Int</th>
+                <th class="text-muted" scope="col-1" style="width:6%">Wis</th>
+                <th class="text-muted" scope="col-1" style="width:6%">Cha</th>
+                <th class="text-muted" scope="col-1" style="width:6%">Edit</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for pc in pcs %}
+                <tr>
+                  <td>{{ pc.name }} {{ pc.id }}</td>
+                  <td>{{ pc.adnd_class }}</td>
+                  <td>{{ pc.race }}</td>
+                  <td>{{ pc.alignment }}</td>
+                  {# prettier-ignore #}
+                  <td>
+                    {{ pc.str }}{% if pc.str_percentile %}/{{ pc.str_percentile }}
+                    {% endif %}
+                  </td>
+                  <td>{{ pc.dex }}</td>
+                  <td>{{ pc.con }}</td>
+                  <td>{{ pc.int }}</td>
+                  <td>{{ pc.wis }}</td>
+                  <td>{{ pc.cha }}</td>
+                  <td>
+                    <a href="#"><small>Delete</small></a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

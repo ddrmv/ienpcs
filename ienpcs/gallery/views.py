@@ -2,11 +2,11 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views import generic
 from django.utils import timezone
+from django.views import generic
 
 from .forms import SignUpForm
-from .models import Character, Game, InvitationCode, Link, NpcInGame, Party
+from .models import Character, Game, InvitationCode, Link, Npc, NpcInGame, Party, Pc
 
 
 class GameListView(generic.ListView):
@@ -138,6 +138,12 @@ def register_user(request):
 
 def party_detail(request):
     context = {}
+    if request.user.is_authenticated:
+        party = Party.objects.get(user=request.user)
+        npcs = party.npcs.all()
+        pcs = Pc.objects.filter(party=party)
+        context["npcs"] = npcs
+        context["pcs"] = pcs
     return render(request, "gallery/party_detail.html", context)
 
 
