@@ -19,6 +19,20 @@
           href="{% url 'character_list' %}">Characters</a>
         </li>
 
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'party_detail' %}active{% endif %}"
+          aria-selected="{% if request.resolver_match.url_name == 'party_detail' %}true{% else %}false{% endif %}"
+          href="{% url 'party_detail' %}">Party</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link text-body-tertiary"
+          aria-selected="{% if request.resolver_match.url_name == 'party_detail' %}true{% else %}false{% endif %}"
+          href="{% url 'party_detail' %}">Party</a>
+        </li>
+        {% endif %}
+
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'link_list' %}active{% endif %}"
           aria-selected="{% if request.resolver_match.url_name == 'link_list' %}true{% else %}false{% endif %}"

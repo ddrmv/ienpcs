@@ -89,7 +89,7 @@ def register_user(request):
     if request.user.is_authenticated:
         messages.error(request, "Error: You are already registered and logged in!")
         return redirect("index")
-    
+
     if request.method != "POST":
         form = SignUpForm()
         return render(request, "gallery/register.html", {"form": form})
@@ -133,6 +133,11 @@ def register_user(request):
         return redirect("index")
     else:
         return render(request, "gallery/register.html", {"form": form})
+
+
+def party_detail(request):
+    context = {}
+    return render(request, "gallery/party_detail.html", context)
 
 
 def toggle_theme(request):
