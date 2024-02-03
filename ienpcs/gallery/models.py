@@ -1,6 +1,8 @@
 import hashlib
 import os
 
+from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -85,7 +87,7 @@ class InvitationCode(models.Model):
     last_used = models.DateTimeField(null=True, blank=True)
 
     class Meta:
-        ordering = ("added", )
+        ordering = ("added",)
 
 
 class Link(models.Model):
@@ -165,3 +167,23 @@ class NpcInGame(models.Model):
 
     def __str__(self):
         return f"{self.npc}  -  {self.game}"
+
+
+class Party(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    npcs = models.ManyToManyField(Npc)
+
+
+class Pc(models.Model):
+    party = models.ForeignKey(Party, on_delete=models.CASCADE)
+    name = models.CharField(max_length=30)
+    adnd_class = models.CharField(max_length=40, blank=True, null=True)
+    race = models.CharField(max_length=20, blank=True, null=True)
+    alignment = models.CharField(max_length=20, blank=True, null=True)
+    str = models.PositiveSmallIntegerField(default=10, blank=True, null=True)
+    str_percentile = models.PositiveSmallIntegerField(null=True, blank=True)
+    dex = models.PositiveSmallIntegerField(default=10, blank=True, null=True)
+    con = models.PositiveSmallIntegerField(default=10, blank=True, null=True)
+    int = models.PositiveSmallIntegerField(default=10, blank=True, null=True)
+    wis = models.PositiveSmallIntegerField(default=10, blank=True, null=True)
+    cha = models.PositiveSmallIntegerField(default=10, blank=True, null=True)
