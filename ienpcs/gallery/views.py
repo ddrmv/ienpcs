@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views import generic
 
-from .forms import CreatePcForm, SignUpForm
+from .forms import AuthenticateUserForm, CreatePcForm, SignUpForm
 from .models import Character, Game, InvitationCode, Link, Npc, NpcInGame, Party, Pc
 
 MAX_NPCS_PER_PARTY = 20
@@ -42,9 +42,7 @@ class CharacterListView(generic.ListView):
 
 def character_detail(request, slug):
     character = get_object_or_404(Character, slug=slug)
-    npcs = character.npc_set.all()
-    for npc in npcs:
-        npc.npc_in_games = NpcInGame.objects.filter(npc=npc)
+    npcs = character.npc_set.prefetch_related("game").all()
     return render(
         request, "gallery/character_detail.html", {"character": character, "npcs": npcs}
     )
@@ -62,30 +60,26 @@ def about(request):
 
 def login_user(request):
     if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
+        form = AuthenticateUserForm(request, data=request.POST)
+        if form.is_valid():
+            login(request, form.get_user())
             messages.success(request, "You have successfully logged in!")
             return redirect("game_list")
         else:
             messages.error(request, "Error: Login unsuccessful.")
-            return redirect("login")
     else:
-        return render(request, "gallery/login.html", {})
+        form = AuthenticateUserForm()
+
+    return render(request, "gallery/login.html", {"form": form})
 
 
+@login_required
 def logout_user(request):
-    if request.user.is_authenticated:
-        theme = request.session.get("theme", "light")
-        logout(request)
-        request.session["theme"] = theme
-        messages.success(request, "You have successfully logged out!")
-        return redirect("game_list")
-    else:
-        messages.error(request, "Error: You are not currently logged in!")
-        return redirect("login")
+    theme = request.session.get("theme", "light")
+    logout(request)
+    request.session["theme"] = theme
+    messages.success(request, "You have successfully logged out!")
+    return redirect("game_list")
 
 
 def register_user(request):
@@ -145,61 +139,48 @@ def party_detail(request):
         party = Party.objects.get(user=request.user)
         npcs = party.npcs.all()
         pcs = Pc.objects.filter(party=party)
-        context["npcs"] = npcs
-        context["pcs"] = pcs
+        context = {"npcs": npcs, "pcs": pcs}
     return render(request, "gallery/party_detail.html", context)
 
 
+@login_required
 def party_add_npc(request, id):
-    if not request.user.is_authenticated:
-        messages.error(request, "You need to be logged in to add NPCs.")
+    party = Party.objects.get(user=request.user)
+    npc = get_object_or_404(Npc, id=id)
+
+    if party.npcs.count() >= MAX_NPCS_PER_PARTY:
+        messages.error(request, "Already at maximum number of NPCs in Party.")
+    elif party.npcs.filter(id=npc.id).exists():
+        messages.error(request, "NPC already in Party.")
     else:
-        party = Party.objects.get(user=request.user)
-        npc = Npc.objects.get(id=id)
-        if party.npcs.count() >= MAX_NPCS_PER_PARTY:
-            messages.error(request, "Already at maximum number of NPCs in Party.")
-        elif party.npcs.filter(id=npc.id).exists():
-            messages.error(request, "NPC already in Party.")
-        else:
-            party.npcs.add(npc)
-            messages.success(request, "NPC added to Party!")
+        party.npcs.add(npc)
+        messages.success(request, "NPC added to Party!")
+
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
+@login_required
 def party_create_pc(request):
-    if not request.user.is_authenticated:
-        messages.error(request, "Error: You need to be logged in to Add PC.")
-        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
-
-    if request.method != "POST":
+    if request.method == "POST":
+        form = CreatePcForm(request.POST)
+        if form.is_valid():
+            pc = form.save(commit=False)
+            pc.party = Party.objects.get(user=request.user)
+            pc.save()
+            messages.success(request, "PC has been created.")
+            return redirect("party_detail")
+    else:
         form = CreatePcForm()
-        return render(request, "gallery/party_create_pc.html", {"form": form})
 
-    # else (request.method == "POST")
-    form = CreatePcForm(request.POST)
-    if form.is_valid():
-        party = Party.objects.get(user=request.user)
-        pc = form.save(commit=False)
-        pc.party = party
-        pc.save()
-        messages.success(request, "PC has been created.")
-        return redirect("party_detail")
-    else:
-        return render(request, "gallery/party_create_pc.html", {"form": form})
+    return render(request, "gallery/party_create_pc.html", {"form": form})
 
 
+@login_required
 def party_delete_pc(request, id):
-    if not request.user.is_authenticated:
-        messages.error(request, "You need to be logged in to delete PCs.")
-    else:
-        party = Party.objects.get(user=request.user)
-        pcs = Pc.objects.filter(party=party)
-        if not pcs.filter(id=id).exists():
-            messages.error(request, "You cannot delete this PC.")
-        else:
-            pc = Pc.objects.get(id=id)
-            pc.delete()
-            messages.success(request, "PC deleted!")
+    party = Party.objects.get(user=request.user)
+    pc = get_object_or_404(Pc, id=id, party=party)
+    pc.delete()
+    messages.success(request, "PC deleted!")
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
@@ -220,17 +201,15 @@ def party_update_pc(request, id):
     return render(request, "gallery/party_update_pc.html", {"form": form, "pc_id": id})
 
 
+@login_required
 def party_remove_npc(request, id):
-    if request.user.is_authenticated:
-        party = Party.objects.get(user=request.user)
-        npc = Npc.objects.get(id=id)
-        party.npcs.remove(npc)
+    party = Party.objects.get(user=request.user)
+    npc = get_object_or_404(Npc, id=id)
+    party.npcs.remove(npc)
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
 def toggle_theme(request):
-    if request.session.get("theme", "light") == "dark":
-        request.session["theme"] = "iight"
-    else:
-        request.session["theme"] = "dark"
+    theme = "dark" if request.session.get("theme", "light") == "light" else "light"
+    request.session["theme"] = theme
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))

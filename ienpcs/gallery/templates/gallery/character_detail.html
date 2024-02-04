@@ -25,8 +25,8 @@
                         {% comment %}if unignored django-formatter addon deletes "active" in forloop.first{% endcomment %}
                         {# prettier-ignore #}
                         <a class="nav-link {% if forloop.first %}active{% endif %}" href="#npc-v{{ forloop.counter }}" role="tab">
-                        {% for relation in npc.npc_in_games %}
-                          {{ relation.game.short_name}}{% if not forloop.last %} - {% endif %}
+                        {% for game in npc.game.all %}
+                          {{ game.short_name}}{% if not forloop.last %} - {% endif %}
                         {% endfor %}
                         </a>
                       </li>
