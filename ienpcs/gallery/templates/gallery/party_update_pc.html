@@ -31,7 +31,9 @@
             {% endif %}
             {{ form.as_p }}
 
-            <button type="submit" class="btn btn-secondary">Update PC</button>
+            <button type="submit" class="btn btn-secondary">Update</button> |
+            <a href="{% url 'party_detail' %}"><button type="button" class="btn btn-secondary">Back</button></a>
+            <a href="{% url 'party_update_pc' pc_id %}"><button type="button" class="btn btn-danger">Delete</button></a>
           </form>
         </div>
       </div>
