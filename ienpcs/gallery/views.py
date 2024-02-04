@@ -202,6 +202,35 @@ def party_delete_pc(request, id):
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
+def party_update_pc(request, id):
+    if not request.user.is_authenticated:
+        messages.error(request, "You need to be logged in to update PCs.")
+        return redirect("party_detail")
+
+    party = Party.objects.get(user=request.user)
+    pcs = Pc.objects.filter(party=party)
+    if not pcs.filter(id=id).exists():
+        messages.error(request, "You cannot edit this PC.")
+        return redirect("party_detail")
+
+    if request.method != "POST":
+        current_pc = Pc.objects.get(id=id)
+        form = CreatePcForm(instance=current_pc)
+        return render(
+            request, "gallery/party_update_pc.html", {"form": form, "pc_id": id}
+        )
+    else:
+        current_pc = Pc.objects.get(id=id)
+        form = CreatePcForm(request.POST)
+        if form.is_valid():
+            for field in form.cleaned_data:
+                print(field)
+                setattr(current_pc, field, form.cleaned_data[field])
+            current_pc.save()
+            messages.success(request, "PC updated!")
+            return redirect("party_detail")
+
+
 def party_remove_npc(request, id):
     if request.user.is_authenticated:
         party = Party.objects.get(user=request.user)

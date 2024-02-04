@@ -107,7 +107,7 @@
                   <td>{{ pc.wis }}</td>
                   <td>{{ pc.cha }}</td>
                   <td>
-                    <a href="#"><small>Edit</small></a>
+                    <a href="{% url 'party_update_pc' pc.id %}"><small>Edit</small></a>
                     <a href="{% url 'party_delete_pc' pc.id %}"><small>Del</small></a>
                   </td>
                 </tr>
