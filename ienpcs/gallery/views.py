@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -202,33 +203,21 @@ def party_delete_pc(request, id):
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
+@login_required
 def party_update_pc(request, id):
-    if not request.user.is_authenticated:
-        messages.error(request, "You need to be logged in to update PCs.")
-        return redirect("party_detail")
-
     party = Party.objects.get(user=request.user)
-    pcs = Pc.objects.filter(party=party)
-    if not pcs.filter(id=id).exists():
-        messages.error(request, "You cannot edit this PC.")
-        return redirect("party_detail")
+    current_pc = get_object_or_404(Pc, id=id, party=party)
 
-    if request.method != "POST":
-        current_pc = Pc.objects.get(id=id)
-        form = CreatePcForm(instance=current_pc)
-        return render(
-            request, "gallery/party_update_pc.html", {"form": form, "pc_id": id}
-        )
-    else:
-        current_pc = Pc.objects.get(id=id)
-        form = CreatePcForm(request.POST)
+    if request.method == "POST":
+        form = CreatePcForm(request.POST, instance=current_pc)
         if form.is_valid():
-            for field in form.cleaned_data:
-                print(field)
-                setattr(current_pc, field, form.cleaned_data[field])
-            current_pc.save()
+            form.save()
             messages.success(request, "PC updated!")
             return redirect("party_detail")
+    else:
+        form = CreatePcForm(instance=current_pc)
+
+    return render(request, "gallery/party_update_pc.html", {"form": form, "pc_id": id})
 
 
 def party_remove_npc(request, id):
