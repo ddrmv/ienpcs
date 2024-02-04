@@ -21,11 +21,61 @@
     </div>
 
     <div class="container mt-4 pb-5 shadow-sm bg-body-tertiary">
-      <div class="row pt-5">
-        <div class="col-12 px-4">
-          <p>Placeholder for 6 member party setup</p>
-        </div>
+      {% comment %}Current party of six{% endcomment %}
+      <div class="row justify-content-center">
+        {% for npc in npcs %}
+          <div class="col-auto">
+            <div class="card h-100 text-body-primary mt-3" style="max-width: 10rem;">
+              <div class="card-body pb-0">
+                <img src="{{ npc.web_image.url|default:'' }}" alt="" />
+                <p class="card-text mt-1 text-center" style="max-width: 110px;">{{ npc.name }}</p>
+              </div>
+
+              {% comment %}Footer{% endcomment %}
+              <div class="card-footer text-center">
+                {% comment %}NPC and PC selectors{% endcomment %}
+                <div class="btn-group">
+                  <button class="btn btn-sm px-1 py-0 btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">NPC</button>
+                  <ul class="dropdown-menu">
+                    {% for npc in npcs %}
+                      <li>
+                        <a class="dropdown-item" href="#">{{ npc.name }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+
+                <div class="btn-group">
+                  <button class="btn btn-sm px-1 py-0 btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">PC</button>
+                  <ul class="dropdown-menu">
+                    {% for pc in pcs %}
+                      <li>
+                        <a class="dropdown-item" href="#">{{ pc.name }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+
+                <br />
+                {% comment %}Party slot row 2 navigation{% endcomment %}
+                {% if forloop.first %}
+                  <a><button type="button" class="btn btn-sm px-1 py-0 btn-tertiary disabled border-0">&lt;</button></a>
+                {% else %}
+                  <a href="{% url 'party_detail' %}"><button type="button" class="btn btn-sm px-1 py-0 btn-tertiary">&lt;</button></a>
+                {% endif %}
+                <a href="{% url 'party_detail' %}"><button type="button" class="btn btn-sm px-1 py-0 btn-tertiary">Clear</button></a>
+                {% if forloop.last %}
+                  <a><button type="button" class="btn btn-sm px-1 py-0 btn-tertiary disabled border-0">&gt;</button></a>
+                {% else %}
+                  <a href="{% url 'party_detail' %}"><button type="button" class="btn btn-sm px-1 py-0 btn-tertiary">&gt;</button></a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
       </div>
+
+      {% comment %}Tables for NPC and PCs{% endcomment %}
       <div class="row pt-5">
         <div class="col-12 px-4">
           <table class="table table-striped table-sm caption-top table-hover">
