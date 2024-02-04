@@ -87,50 +87,37 @@ def register_user(request):
         messages.error(request, "Error: You are already registered and logged in!")
         return redirect("index")
 
-    if request.method != "POST":
-        form = SignUpForm()
-        return render(request, "gallery/register.html", {"form": form})
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            # Check invitation is valid and not used over limit
+            invite_code = form.cleaned_data["invitation_code"]
+            try:
+                InvitationCode.objects.get(code=invite_code)
+            except InvitationCode.DoesNotExist:
+                messages.error(request, "Invalid invitation code.")
+                return render(request, "gallery/register.html", {"form": form})
 
-    # else (request.method == "POST")
-    form = SignUpForm(request.POST)
-    if form.is_valid():
-        # Check invitation is valid and not used over limit
-        invitation_code_input = form.cleaned_data["invitation_code"]
-        try:
-            InvitationCode.objects.get(code=invitation_code_input)
-        except InvitationCode.DoesNotExist:
-            messages.error(request, "Invalid invitation code.")
-            form = SignUpForm()
-            return render(request, "gallery/register.html", {"form": form})
-        invitation = InvitationCode.objects.get(code=invitation_code_input)
-        if invitation.times_used >= invitation.max_uses:
-            messages.error(
-                request,
-                "The invitation code has been used too many times, please request another.",
-            )
-            form = SignUpForm()
-            return render(request, "gallery/register.html", {"form": form})
+            invitation = InvitationCode.objects.get(code=invite_code)
+            if invitation.times_used >= invitation.max_uses:
+                messages.error(request, "Invite code expired please request another.")
+                return render(request, "gallery/register.html", {"form": form})
 
-        # Update times invitation has been used
-        invitation.times_used += 1
-        invitation.last_used = timezone.now()
-        invitation.save()
+            # Update times invitation has been used
+            invitation.times_used += 1
+            invitation.last_used = timezone.now()
+            invitation.save()
 
-        # Save new user in database and log in
-        user = form.save()
-        Party.objects.create(user=user)
-        username = form.cleaned_data["username"]
-        password = form.cleaned_data["password1"]
-        user = authenticate(username=username, password=password)
-        theme = request.session.get("theme", "light")
-        login(request, user)
-        request.session["theme"] = theme
-        messages.success(
-            request, "You have successfully registered and have been logged in."
-        )
-        return redirect("index")
+            # Save new user in database and log in
+            user = form.save()
+            Party.objects.create(user=user)
+            login(request, user)
+            messages.success(request, "Registration and login successful!")
+            return redirect("index")
     else:
-        return render(request, "gallery/register.html", {"form": form})
+        form = SignUpForm()
+
+    return render(request, "gallery/register.html", {"form": form})
 
 
 def party_detail(request):
