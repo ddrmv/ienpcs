@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
@@ -10,6 +10,7 @@ from .forms import AuthenticateUserForm, CreatePcForm, SignUpForm
 from .models import Character, Game, InvitationCode, Link, Npc, NpcInGame, Party, Pc
 
 MAX_NPCS_PER_PARTY = 20
+MAX_PCS_PER_PARTY = 10
 
 
 class GameListView(generic.ListView):
@@ -148,12 +149,15 @@ def party_add_npc(request, id):
 
 @login_required
 def party_create_pc(request):
+    party = get_object_or_404(Party, user=request.user)
+    if party.pc_set.count() >= MAX_PCS_PER_PARTY:
+        messages.error(request, f"The party already has {MAX_PCS_PER_PARTY} PCs.")
+        return redirect("party_detail") 
+
     if request.method == "POST":
-        form = CreatePcForm(request.POST)
+        form = CreatePcForm(request.POST, instance=Pc(party=party))
         if form.is_valid():
-            pc = form.save(commit=False)
-            pc.party = Party.objects.get(user=request.user)
-            pc.save()
+            form.save()
             messages.success(request, "PC has been created.")
             return redirect("party_detail")
     else:
