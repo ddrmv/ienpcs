@@ -1,0 +1,42 @@
+{% extends 'gallery/base.html' %}
+
+{% block title %}
+  <title>Create PC</title>
+{% endblock %}
+
+{% block content %}
+  <div class="container" style="max-width: 1150px;">
+    <div class="row pt-5">
+      <div class="col-12">
+        <h2 class="border-bottom mb-4 pb-2"><a class="text-decoration-none" href="#">Create PC</a></h2>
+        <p>You can create a Player Character (PC), the main one of which is also known as CHARNAME. You can add one or more PC to a party. Most of the games have an option to easily add multiple custom created PCs to a party, while others were created with fully custom created party and no joinable NPCs in mind.</p>
+        <p>There are no restrictions for the non-numeric fields, except for the length of the text.</p>
+      </div>
+    </div>
+
+    <div class="container mt-4 py-5 shadow-sm bg-body-tertiary">
+      <div class="row justify-content-center">
+        <div class="col-4">
+          <form method="POST" action="{% url 'party_create_pc' %}">
+            {% csrf_token %}
+
+            {% if form.errors %}
+              <div class="alert alert-secondary alert-dismissible show mt-5" role="alert">
+                <p>The form has errors:</p>
+                {% for field in form %}
+                  {% if field.errors %}
+                    <small>{{ field.errors }}</small>
+                  {% endif %}
+                {% endfor %}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endif %}
+            {{ form.as_p }}
+
+            <button type="submit" class="btn btn-secondary">Add PC</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

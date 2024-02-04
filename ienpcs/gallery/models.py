@@ -179,9 +179,9 @@ class Party(models.Model):
 class Pc(models.Model):
     party = models.ForeignKey(Party, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
-    adnd_class = models.CharField(max_length=40, blank=True, null=True)
-    race = models.CharField(max_length=20, blank=True, null=True)
-    alignment = models.CharField(max_length=20, blank=True, null=True)
+    adnd_class = models.CharField(default="Fighter", max_length=40, blank=True, null=True)
+    race = models.CharField(default="Human", max_length=20, blank=True, null=True)
+    alignment = models.CharField(default="True Neutral", max_length=20, blank=True, null=True)
     str = models.PositiveSmallIntegerField(default=10, blank=True, null=True)
     str_percentile = models.PositiveSmallIntegerField(null=True, blank=True)
     dex = models.PositiveSmallIntegerField(default=10, blank=True, null=True)

@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views import generic
 
-from .forms import SignUpForm
+from .forms import CreatePcForm, SignUpForm
 from .models import Character, Game, InvitationCode, Link, Npc, NpcInGame, Party, Pc
 
 MAX_NPCS_PER_PARTY = 20
@@ -163,6 +163,28 @@ def party_add_npc(request, id):
             party.npcs.add(npc)
             messages.success(request, "NPC added to Party!")
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+
+def party_create_pc(request):
+    if not request.user.is_authenticated:
+        messages.error(request, "Error: You need to be logged in to Add PC.")
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+    if request.method != "POST":
+        form = CreatePcForm()
+        return render(request, "gallery/party_create_pc.html", {"form": form})
+
+    # else (request.method == "POST")
+    form = CreatePcForm(request.POST)
+    if form.is_valid():
+        party = Party.objects.get(user=request.user)
+        pc = form.save(commit=False)
+        pc.party = party
+        pc.save()
+        messages.success(request, "PC has been created.")
+        return redirect("party_detail")
+    else:
+        return render(request, "gallery/party_create_pc.html", {"form": form})
 
 
 def party_delete_pc(request, id):

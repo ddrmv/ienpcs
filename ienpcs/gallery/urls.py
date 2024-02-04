@@ -10,6 +10,7 @@ urlpatterns = [
     path("character/<slug:slug>", views.character_detail, name="character_detail"),
     path("party/", views.party_detail, name="party_detail"),
     path("party_add_npc/<int:id>/", views.party_add_npc, name="party_add_npc"),
+    path("party_create_pc/", views.party_create_pc, name="party_create_pc"),
     path("party_delete_pc/<int:id>/", views.party_delete_pc, name="party_delete_pc"),
     path("party_remove_npc/<int:id>/", views.party_remove_npc, name="party_remove_npc"),
     path("links/", views.LinkListView.as_view(), name="link_list"),
