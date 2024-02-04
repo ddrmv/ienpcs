@@ -149,18 +149,9 @@ def party_detail(request):
     return render(request, "gallery/party_detail.html", context)
 
 
-def party_remove_npc(request, id):
-    if request.user.is_authenticated:
-        party = Party.objects.get(user=request.user)
-        npc = Npc.objects.get(id=id)
-        party.npcs.remove(npc)
-    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
-
-
 def party_add_npc(request, id):
     if not request.user.is_authenticated:
         messages.error(request, "You need to be logged in to add NPCs.")
-        # return redirect("index")
     else:
         party = Party.objects.get(user=request.user)
         npc = Npc.objects.get(id=id)
@@ -171,7 +162,29 @@ def party_add_npc(request, id):
         else:
             party.npcs.add(npc)
             messages.success(request, "NPC added to Party!")
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
+
+def party_delete_pc(request, id):
+    if not request.user.is_authenticated:
+        messages.error(request, "You need to be logged in to delete PCs.")
+    else:
+        party = Party.objects.get(user=request.user)
+        pcs = Pc.objects.filter(party=party)
+        if not pcs.filter(id=id).exists():
+            messages.error(request, "You cannot delete this PC.")
+        else:
+            pc = Pc.objects.get(id=id)
+            pc.delete()
+            messages.success(request, "PC deleted!")
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+
+def party_remove_npc(request, id):
+    if request.user.is_authenticated:
+        party = Party.objects.get(user=request.user)
+        npc = Npc.objects.get(id=id)
+        party.npcs.remove(npc)
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
