@@ -63,7 +63,7 @@
                 {% else %}
                   <a href="{% url 'party_detail' %}"><button type="button" class="btn btn-sm px-1 py-0 btn-tertiary">&lt;</button></a>
                 {% endif %}
-                <a href="{% url 'party_detail' %}"><button type="button" class="btn btn-sm px-1 py-0 btn-tertiary">Clear</button></a>
+                <a href="{% url 'party_slot_clear' forloop.counter %}"><button type="button" class="btn btn-sm px-1 py-0 btn-tertiary">Clear</button></a>
                 {% if forloop.last %}
                   <a><button type="button" class="btn btn-sm px-1 py-0 btn-tertiary disabled border-0">&gt;</button></a>
                 {% else %}

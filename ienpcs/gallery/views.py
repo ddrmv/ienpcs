@@ -137,7 +137,7 @@ def party_detail(request):
         party = Party.objects.get(user=request.user)
         npcs = party.npcs.all()
         pcs = Pc.objects.filter(party=party)
-        slots = Slot.objects.filter(party=party)[:party.party_size]
+        slots = Slot.objects.filter(party=party)[: party.party_size]
         context = {
             "npcs": npcs,
             "pcs": pcs,
@@ -223,6 +223,16 @@ def party_set_size(request, party_size):
     party.slot_set.filter(position__gt=party_size).update(
         object_id=None, content_type=None
     )
+    return redirect("party_detail")
+
+
+@login_required
+def party_slot_clear(request, position):
+    party = Party.objects.get(user=request.user)
+    slot = party.slot_set.get(position=position)
+    slot.object_id = None
+    slot.content_type = None
+    slot.save()
     return redirect("party_detail")
 
 
