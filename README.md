@@ -62,3 +62,6 @@ description
 gallery_image
 zip_file
 ```
+
+### Note:
+- Web server file uploat size limit needs to be set due to forms processing user-uploaded images for Pc. Django checks for 100KB size, only after completed upload.

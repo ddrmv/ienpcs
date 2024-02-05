@@ -3,6 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 
 from .models import Pc
+from .validators import web_image_size
 
 
 class AuthenticateUserForm(AuthenticationForm):
@@ -47,14 +48,17 @@ class CreatePcForm(forms.ModelForm):
             "cha": "Usually 3 to 18",
         }
 
+        # Add form-text to all fields from help_text_dict
         for field in self.fields.keys():
             self.fields[
                 field
             ].help_text = f'<span class="form-text">{ help_text_dict[field] }</span>'
 
+        # Add for-control to all fields
         for field in self.fields.values():
             field.widget.attrs["class"] = "form-control"
 
+        # Add label to all fields
         self.fields["name"].label = "Name"
         self.fields["web_image"].label = "Portrait"
         self.fields["adnd_class"].label = "Class"
@@ -67,6 +71,9 @@ class CreatePcForm(forms.ModelForm):
         self.fields["int"].label = "Intelligence"
         self.fields["wis"].label = "Wisdom"
         self.fields["cha"].label = "Charisma"
+
+        # Add custom validators
+        self.fields['web_image'].validators.append(web_image_size)
 
 
 class SignUpForm(UserCreationForm):
