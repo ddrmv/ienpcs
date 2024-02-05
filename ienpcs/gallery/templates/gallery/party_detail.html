@@ -1,5 +1,7 @@
 {% extends 'gallery/base.html' %}
 
+{% load static %}
+
 {% block title %}
   <title>Party management</title>
 {% endblock %}
@@ -27,7 +29,12 @@
           <div class="col-auto">
             <div class="card h-100 text-body-primary mt-3" style="max-width: 10rem;">
               <div class="card-body pb-0">
-                <img src="{{ slot.content_object.web_image.url|default:'' }}" alt="" />
+                {% comment %} Portrait {% endcomment %}
+                {% if slot.content_object.web_image.url %}
+                  <img src="{{ slot.content_object.web_image.url }}" width="110" height="170" alt="Portrait of {{ slot.content_object.name }}" />
+                {% else %}
+                  <img src="{% static 'gallery/img/default_170.webp' %}" width="110" height="170" alt="Portrait placeholder image." />
+                {% endif %}
                 <p class="card-text mt-1 text-center" style="max-width: 110px;">{{ slot.content_object.name }}</p>
               </div>
 
@@ -75,14 +82,15 @@
         {% endfor %}
       </div>
 
-      {% comment %} Party size selector {% endcomment %}
+      {% comment %}Party size selector{% endcomment %}
       <div class="row">
         <div class="col text-center">
-          Party size: 
-        {# prettier-ignore #}
-        {% for slot_num in "123456" %}
-          <a href="{% url 'party_set_size' slot_num %}"><button type="button" class="btn py-0 btn-outline-secondary">{{ slot_num }}</button></a>
-        {% endfor %}
+          Party size:
+          {% comment %}Without prettier-ignore django-templates extension converts "123456" to int{% endcomment %}
+          {# prettier-ignore #}
+          {% for slot_num in "123456" %}
+            <a href="{% url 'party_set_size' slot_num %}"><button type="button" class="btn py-0 btn-outline-secondary">{{ slot_num }}</button></a>
+          {% endfor %}
         </div>
       </div>
 
