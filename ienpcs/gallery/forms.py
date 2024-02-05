@@ -16,6 +16,7 @@ class CreatePcForm(forms.ModelForm):
         model = Pc
         fields = (
             "name",
+            "web_image",
             "adnd_class",
             "race",
             "alignment",
@@ -33,6 +34,7 @@ class CreatePcForm(forms.ModelForm):
 
         help_text_dict = {
             "name": "Name is required.",
+            "web_image": "Image should be 110x170px.",
             "adnd_class": "Ex: Fighter, Mage, F/M, Kensai/Illusionist/Swashbuckler",
             "race": "Ex: Human, Dwarf, Drow, Hamster",
             "alignment": "Ex: Neutral Good, Evil",
@@ -54,6 +56,7 @@ class CreatePcForm(forms.ModelForm):
             field.widget.attrs["class"] = "form-control"
 
         self.fields["name"].label = "Name"
+        self.fields["web_image"].label = "Portrait"
         self.fields["adnd_class"].label = "Class"
         self.fields["race"].label = "Race"
         self.fields["alignment"].label = "Alignment"

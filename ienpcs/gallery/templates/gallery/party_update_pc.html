@@ -15,7 +15,7 @@
     <div class="container mt-4 py-5 shadow-sm bg-body-tertiary">
       <div class="row justify-content-center">
         <div class="col-4">
-          <form method="POST" action="{% url 'party_update_pc' pc_id %}">
+          <form method="POST" enctype="multipart/form-data" action="{% url 'party_update_pc' pc_id %}">
             {% csrf_token %}
 
             {% if form.errors %}

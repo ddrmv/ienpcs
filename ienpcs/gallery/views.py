@@ -171,7 +171,7 @@ def party_create_pc(request):
         return redirect("party_detail")
 
     if request.method == "POST":
-        form = CreatePcForm(request.POST, instance=Pc(party=party))
+        form = CreatePcForm(request.POST, request.FILES, instance=Pc(party=party))
         if form.is_valid():
             form.save()
             messages.success(request, "PC has been created.")
@@ -197,7 +197,7 @@ def party_update_pc(request, id):
     current_pc = get_object_or_404(Pc, id=id, party=party)
 
     if request.method == "POST":
-        form = CreatePcForm(request.POST, instance=current_pc)
+        form = CreatePcForm(request.POST, request.FILES, instance=current_pc)
         if form.is_valid():
             form.save()
             messages.success(request, "PC updated!")

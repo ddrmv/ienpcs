@@ -1,5 +1,6 @@
 import hashlib
 import os
+import uuid
 
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -191,8 +192,17 @@ class Party(models.Model):
                 Slot.objects.create(party=self, position=i + 1)
 
 
+def pc_portrait_path(instance, filename):
+    path = "pcs"
+    fname, dot, extension = filename.rpartition(".")
+    uuid_part = str(uuid.uuid4())
+    format = fname + "_" + uuid_part + dot + extension
+    return os.path.join(path, format)
+
+
 class Pc(models.Model):
     party = models.ForeignKey(Party, on_delete=models.CASCADE)
+    web_image = models.ImageField(upload_to=pc_portrait_path, blank=True, null=True)
     name = models.CharField(max_length=30)
     adnd_class = models.CharField(
         default="Fighter", max_length=40, blank=True, null=True

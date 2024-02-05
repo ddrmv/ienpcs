@@ -30,7 +30,7 @@
             <div class="card h-100 text-body-primary mt-3" style="max-width: 10rem;">
               <div class="card-body pb-0">
                 {% comment %}Portrait{% endcomment %}
-                {% if slot.content_object.web_image.url %}
+                {% if slot.content_object.web_image %}
                   <img src="{{ slot.content_object.web_image.url }}" width="110" height="170" alt="Portrait of {{ slot.content_object.name }}" />
                 {% else %}
                   <img src="{% static 'gallery/img/default_170.webp' %}" width="110" height="170" alt="Portrait placeholder image." />
