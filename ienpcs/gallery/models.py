@@ -1,4 +1,3 @@
-import hashlib
 import os
 import uuid
 
@@ -15,25 +14,25 @@ MAX_PARTY_SIZE = 6
 
 def web_image_with_hash(instance, filename):
     path = "web_portraits"
-    fname, dot, extension = filename.rpartition(".")
-    file_hash = hashlib.sha1(instance.web_image.read()).hexdigest()
-    format = fname + "_" + file_hash + dot + extension
+    fname, extension = os.path.splitext(filename)
+    uuid_str = str(uuid.uuid4())
+    format = fname + "_" + uuid_str + extension
     return os.path.join(path, format)
 
 
 def zip_file_with_hash(instance, filename):
     path = "zip_file"
-    fname, dot, extension = filename.rpartition(".")
-    file_hash = hashlib.sha1(instance.zip_file.read()).hexdigest()
-    format = fname + "_" + file_hash + dot + extension
+    fname, extension = os.path.splitext(filename)
+    uuid_str = str(uuid.uuid4())
+    format = fname + "_" + uuid_str + extension
     return os.path.join(path, format)
 
 
 def char_portrait_with_hash(instance, filename):
     path = "chars"
-    fname, dot, extension = filename.rpartition(".")
-    file_hash = hashlib.sha1(instance.img_170.read()).hexdigest()
-    format = fname + "_" + file_hash + dot + extension
+    fname, extension = os.path.splitext(filename)
+    uuid_str = str(uuid.uuid4())
+    format = fname + "_" + uuid_str + extension
     return os.path.join(path, format)
 
 
@@ -194,10 +193,10 @@ class Party(models.Model):
 
 def pc_portrait_path(instance, filename):
     path = "pcs"
-    fname, dot, extension = filename.rpartition(".")
-    uuid_part = str(uuid.uuid4())
-    format = fname + "_" + uuid_part + dot + extension
-    return os.path.join(path, format)
+    _, extension = os.path.splitext(filename)
+    uuid_str = str(uuid.uuid4())
+    new_filename = uuid_str + extension
+    return os.path.join(path, new_filename)
 
 
 class Pc(models.Model):
