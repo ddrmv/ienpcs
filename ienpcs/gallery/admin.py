@@ -10,6 +10,7 @@ from .models import (
     Party,
     Pc,
     Portrait,
+    Slot,
 )
 
 
@@ -124,6 +125,17 @@ class PortraitAdmin(admin.ModelAdmin):
         return obj.description[:20]
 
 
+class SlotAdmin(admin.ModelAdmin):
+    list_display = [
+        "party",
+        "position",
+        "content_type",
+        "object_id",
+        "content_object",
+    ]
+
+
+admin.site.register(Character, CharacterAdmin)
 admin.site.register(Game, GameAdmin)
 admin.site.register(InvitationCode, InvitationCodeAdmin)
 admin.site.register(Link, LinkAdmin)
@@ -132,4 +144,4 @@ admin.site.register(NpcInGame, NpcInGameAdmin)
 admin.site.register(Party, PartyAdmin)
 admin.site.register(Pc, PcAdmin)
 admin.site.register(Portrait, PortraitAdmin)
-admin.site.register(Character, CharacterAdmin)
+admin.site.register(Slot, SlotAdmin)

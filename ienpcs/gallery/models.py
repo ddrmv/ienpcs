@@ -2,9 +2,14 @@ import hashlib
 import os
 
 from django.conf import settings
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+
+MAX_PARTY_SIZE = 6
 
 
 def web_image_with_hash(instance, filename):
@@ -171,17 +176,31 @@ class NpcInGame(models.Model):
 class Party(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     npcs = models.ManyToManyField(Npc, blank=True)
+    party_size = models.PositiveSmallIntegerField(
+        default=6, validators=[MaxValueValidator(MAX_PARTY_SIZE), MinValueValidator(1)]
+    )
 
     def __str__(self):
         return f"{ self.user.username }"
+
+    def save(self, *args, **kwargs):
+        is_new = self.pk is None
+        super().save(*args, **kwargs)
+        if is_new:
+            for i in range(6):
+                Slot.objects.create(party=self, position=i + 1)
 
 
 class Pc(models.Model):
     party = models.ForeignKey(Party, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
-    adnd_class = models.CharField(default="Fighter", max_length=40, blank=True, null=True)
+    adnd_class = models.CharField(
+        default="Fighter", max_length=40, blank=True, null=True
+    )
     race = models.CharField(default="Human", max_length=20, blank=True, null=True)
-    alignment = models.CharField(default="True Neutral", max_length=20, blank=True, null=True)
+    alignment = models.CharField(
+        default="True Neutral", max_length=20, blank=True, null=True
+    )
     str = models.PositiveSmallIntegerField(default=10, blank=True, null=True)
     str_percentile = models.PositiveSmallIntegerField(null=True, blank=True)
     dex = models.PositiveSmallIntegerField(default=10, blank=True, null=True)
@@ -195,3 +214,24 @@ class Pc(models.Model):
 
     class Meta:
         ordering = ("name",)
+
+
+class Slot(models.Model):
+    party = models.ForeignKey(Party, on_delete=models.CASCADE)
+    content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, blank=True, null=True
+    )
+    object_id = models.PositiveIntegerField(blank=True, null=True)
+    content_object = GenericForeignKey("content_type", "object_id")
+    position = models.PositiveSmallIntegerField(
+        validators=[MaxValueValidator(MAX_PARTY_SIZE), MinValueValidator(1)]
+    )
+
+    def __str__(self):
+        return f"slot{self.position}"
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["content_type", "object_id"]),
+        ]
+        ordering = ("position",)
