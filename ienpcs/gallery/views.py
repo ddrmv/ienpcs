@@ -7,7 +7,17 @@ from django.utils import timezone
 from django.views import generic
 
 from .forms import AuthenticateUserForm, CreatePcForm, SignUpForm
-from .models import Character, Game, InvitationCode, Link, Npc, NpcInGame, Party, Pc
+from .models import (
+    Character,
+    Game,
+    InvitationCode,
+    Link,
+    Npc,
+    NpcInGame,
+    Party,
+    Pc,
+    Slot,
+)
 
 MAX_NPCS_PER_PARTY = 20
 MAX_PCS_PER_PARTY = 10
@@ -127,7 +137,12 @@ def party_detail(request):
         party = Party.objects.get(user=request.user)
         npcs = party.npcs.all()
         pcs = Pc.objects.filter(party=party)
-        context = {"npcs": npcs, "pcs": pcs}
+        slots = Slot.objects.filter(party=party)[:party.party_size]
+        context = {
+            "npcs": npcs,
+            "pcs": pcs,
+            "slots": slots,
+        }
     return render(request, "gallery/party_detail.html", context)
 
 
@@ -152,7 +167,7 @@ def party_create_pc(request):
     party = get_object_or_404(Party, user=request.user)
     if party.pc_set.count() >= MAX_PCS_PER_PARTY:
         messages.error(request, f"The party already has {MAX_PCS_PER_PARTY} PCs.")
-        return redirect("party_detail") 
+        return redirect("party_detail")
 
     if request.method == "POST":
         form = CreatePcForm(request.POST, instance=Pc(party=party))
@@ -198,6 +213,17 @@ def party_remove_npc(request, id):
     npc = get_object_or_404(Npc, id=id)
     party.npcs.remove(npc)
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+
+@login_required
+def party_set_size(request, party_size):
+    party = Party.objects.get(user=request.user)
+    party.party_size = party_size
+    party.save()
+    party.slot_set.filter(position__gt=party_size).update(
+        object_id=None, content_type=None
+    )
+    return redirect("party_detail")
 
 
 def toggle_theme(request):

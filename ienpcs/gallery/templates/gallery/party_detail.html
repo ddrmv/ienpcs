@@ -22,13 +22,13 @@
 
     <div class="container mt-4 pb-5 shadow-sm bg-body-tertiary">
       {% comment %}Current party of six{% endcomment %}
-      <div class="row justify-content-center">
-        {% for npc in npcs %}
+      <div class="row pb-5 justify-content-center">
+        {% for slot in slots %}
           <div class="col-auto">
             <div class="card h-100 text-body-primary mt-3" style="max-width: 10rem;">
               <div class="card-body pb-0">
-                <img src="{{ npc.web_image.url|default:'' }}" alt="" />
-                <p class="card-text mt-1 text-center" style="max-width: 110px;">{{ npc.name }}</p>
+                <img src="{{ slot.content_object.web_image.url|default:'' }}" alt="" />
+                <p class="card-text mt-1 text-center" style="max-width: 110px;">{{ slot.content_object.name }}</p>
               </div>
 
               {% comment %}Footer{% endcomment %}
@@ -73,6 +73,17 @@
             </div>
           </div>
         {% endfor %}
+      </div>
+
+      {% comment %} Party size selector {% endcomment %}
+      <div class="row">
+        <div class="col text-center">
+          Party size: 
+        {# prettier-ignore #}
+        {% for slot_num in "123456" %}
+          <a href="{% url 'party_set_size' slot_num %}"><button type="button" class="btn py-0 btn-outline-secondary">{{ slot_num }}</button></a>
+        {% endfor %}
+        </div>
       </div>
 
       {% comment %}Tables for NPC and PCs{% endcomment %}
