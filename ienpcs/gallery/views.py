@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -233,6 +234,51 @@ def party_slot_clear(request, position):
     slot.object_id = None
     slot.content_type = None
     slot.save()
+    return redirect("party_detail")
+
+
+@login_required
+def party_slot_set_npc(request, position, id):
+    party = Party.objects.get(user=request.user)
+    slot = party.slot_set.get(position=position)
+    slot.object_id = id
+    slot.content_type = ContentType.objects.get_for_model(Npc)
+    slot.save()
+    return redirect("party_detail")
+
+
+@login_required
+def party_slot_set_pc(request, position, id):
+    party = Party.objects.get(user=request.user)
+    slot = party.slot_set.get(position=position)
+    get_object_or_404(Pc, party=party, id=id)
+    slot.object_id = id
+    slot.content_type = ContentType.objects.get_for_model(Pc)
+    slot.save()
+    return redirect("party_detail")
+
+
+@login_required
+def party_slot_swap_left(request, position):
+    party = Party.objects.get(user=request.user)
+    if position <= party.party_size and position > 1:
+        slot = party.slot_set.get(position=position)
+        slot_on_left = party.slot_set.get(position=position - 1)
+        slot_on_left.position, slot.position = slot.position, slot_on_left.position
+        slot.save()
+        slot_on_left.save()
+    return redirect("party_detail")
+
+
+@login_required
+def party_slot_swap_right(request, position):
+    party = Party.objects.get(user=request.user)
+    if position <= party.party_size - 1 and position > 0:
+        slot = party.slot_set.get(position=position)
+        slot_on_right = party.slot_set.get(position=position + 1)
+        slot_on_right.position, slot.position = slot.position, slot_on_right.position
+        slot.save()
+        slot_on_right.save()
     return redirect("party_detail")
 
 

@@ -33,7 +33,7 @@ class CreatePcForm(forms.ModelForm):
 
         help_text_dict = {
             "name": "Name is required.",
-            "adnd_class": "Ex: Fighter, Mage, Kensai/Illusionist/Swashbuckler",
+            "adnd_class": "Ex: Fighter, Mage, F/M, Kensai/Illusionist/Swashbuckler",
             "race": "Ex: Human, Dwarf, Drow, Hamster",
             "alignment": "Ex: Neutral Good, Evil",
             "str": "Usually 3 to 18",

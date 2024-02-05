@@ -22,6 +22,26 @@ urlpatterns = [
         views.party_slot_clear,
         name="party_slot_clear",
     ),
+    path(
+        "party/slot_set_npc/<int:position>/<int:id>",
+        views.party_slot_set_npc,
+        name="party_slot_set_npc",
+    ),
+    path(
+        "party/slot_set_pc/<int:position>/<int:id>",
+        views.party_slot_set_pc,
+        name="party_slot_set_pc",
+    ),
+    path(
+        "party/slot_swap_left/<int:position>/",
+        views.party_slot_swap_left,
+        name="party_slot_swap_left",
+    ),
+    path(
+        "party/slot_swap_right/<int:position>/",
+        views.party_slot_swap_right,
+        name="party_slot_swap_right",
+    ),
     path("links/", views.LinkListView.as_view(), name="link_list"),
     path("about/", views.about, name="about"),
     path("login/", views.login_user, name="login"),
