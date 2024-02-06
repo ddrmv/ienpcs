@@ -17,8 +17,8 @@
       <div class="row justify-content-center">
         {% for ch in character_list %}
           <div class="col-auto mb-4">
-            <div class="card h-100" style="width: 210px;">
-              <a href="{% url 'gallery:character_detail' ch.slug %}"><img src="{{ ch.img_170.url }}" class="card-img-top" alt="Portrait of {{ ch.name }}" /></a>
+            <div class="card h-100" style="width: 212px;">
+              <a href="{% url 'gallery:character_detail' ch.slug %}"><img src="{{ ch.img_170.url }}" class="card-img-top" width="210" height="330" alt="Portrait of {{ ch.name }}" /></a>
               <div class="card-body">
                 <h5 class="card-title">{{ ch.name }}</h5>
                 <p class="card-text">{{ ch.description }}</p>
