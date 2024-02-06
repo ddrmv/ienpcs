@@ -17,6 +17,20 @@
         <p>The Links page has links to websites dedicated to the Infinity Engine games, including modding websites, forums, guides and galleries.</p>
         <h4 class="pt-4">Content</h4>
         <p>Currently the site has the original portraits from the games, art linked to mods and fanart.</p>
+        <h4 class="pt-4">Contact</h4>
+        <p>If you'd like to comment on the site or want to reach somebody regarding a game, npc, portrait, etc, please send a message!</p>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-6 py-3 rounded-2 bg-body-tertiary">
+        <p>
+          <strong>SMTP server needs to be configured. Please use github contact instead.</strong>
+        </p>
+        <form method="POST">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button class="btn btn-secondary" type="submit">Send</button>
+        </form>
       </div>
     </div>
   </div>

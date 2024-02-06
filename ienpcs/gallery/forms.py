@@ -12,6 +12,18 @@ class AuthenticateUserForm(AuthenticationForm):
         fields = ("username", "password")
 
 
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=80)
+    email = forms.EmailField(required=False)
+    message = forms.CharField(widget=forms.Textarea)
+
+    def __init__(self, *args, **kwargs):
+        super(forms.Form, self).__init__(*args, **kwargs)
+
+        for field in self.fields.values():
+            field.widget.attrs["class"] = "form-control"
+
+
 class CreatePcForm(forms.ModelForm):
     class Meta:
         model = Pc
@@ -73,7 +85,7 @@ class CreatePcForm(forms.ModelForm):
         self.fields["cha"].label = "Charisma"
 
         # Add custom validators
-        self.fields['web_image'].validators.append(web_image_size)
+        self.fields["web_image"].validators.append(web_image_size)
 
 
 class SignUpForm(UserCreationForm):

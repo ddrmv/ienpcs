@@ -2,12 +2,13 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
+from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views import generic
 
-from .forms import AuthenticateUserForm, CreatePcForm, SignUpForm
+from .forms import AuthenticateUserForm, ContactForm, CreatePcForm, SignUpForm
 from .models import (
     Character,
     Game,
@@ -66,8 +67,31 @@ class LinkListView(generic.ListView):
     queryset = Link.objects.all()
 
 
+# Contact form inside About page
+# SMTP needs to be configured for the form to function, otherwise shows an Error
 def about(request):
-    return render(request, "gallery/about.html", {})
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data["name"]
+            email = form.cleaned_data["email"]
+            message = form.cleaned_data["message"]
+            try:
+                send_mail(
+                    "Subject: IENPCs contact form message",
+                    f"[name]: {name} [email]: ({email}) says:\n\n{message}",
+                    "example@example.com",  # Site origin email
+                    ["example@example.com"],  # Site admin email
+                )
+                messages.success(request, "Email sent successfully!")
+                return redirect("gallery:about")
+            except Exception as e:
+                messages.error(request, f"Error: {e}")
+                return redirect("gallery:about")
+    else:
+        form = ContactForm()
+
+    return render(request, "gallery/about.html", {"form": form})
 
 
 def login_user(request):
