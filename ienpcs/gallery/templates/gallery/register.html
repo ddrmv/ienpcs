@@ -15,7 +15,7 @@
     <div class="container mt-4 py-5 shadow-sm bg-body-tertiary">
       <div class="row justify-content-center">
         <div class="col-4">
-          <form method="POST" action="{% url 'register' %}">
+          <form method="POST" action="{% url 'gallery:register' %}">
             {% csrf_token %}
 
             {% if form.errors %}

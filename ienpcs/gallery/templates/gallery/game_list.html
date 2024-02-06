@@ -10,7 +10,7 @@
     <ul class="nav nav-underline justify-content-center">
       {% for game in game_list %}
         <li class="nav-item border-bottom">
-          <a class="nav-link" href="{% url 'game_detail' game.slug %}">{{ game.short_name }}</a>
+          <a class="nav-link" href="{% url 'gallery:game_detail' game.slug %}">{{ game.short_name }}</a>
         </li>
       {% endfor %}
     </ul>
@@ -18,12 +18,12 @@
     {% for game in game_list %}
       <div class="row pt-5">
         <div class="col-12">
-          <h4 class="border-bottom mb-4 pb-2"><a class="text-decoration-none fw-bold" href="{% url 'game_detail' game.slug %}">{{ game.name }}</a></h4>
+          <h4 class="border-bottom mb-4 pb-2"><a class="text-decoration-none fw-bold" href="{% url 'gallery:game_detail' game.slug %}">{{ game.name }}</a></h4>
         </div>
       </div>
       <div class="row">
         <div class="col-4" style="min-width: 350px;">
-          <a href="{% url 'game_detail' game.slug %}"><img src="{{ game.title_screen.url }}" class="border border-3 mb-3" alt="Game title screen for {{ game.name }}" /></a>
+          <a href="{% url 'gallery:game_detail' game.slug %}"><img src="{{ game.title_screen.url }}" class="border border-3 mb-3" alt="Game title screen for {{ game.name }}" /></a>
         </div>
         <div class="col-8" style="min-width: 25rem;">
           <table class="table table-striped">

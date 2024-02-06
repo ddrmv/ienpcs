@@ -15,7 +15,7 @@
     <div class="container mt-4 py-5 shadow-sm bg-body-tertiary">
       <div class="row justify-content-center">
         <div class="col-4">
-          <form method="POST" enctype="multipart/form-data" action="{% url 'party_update_pc' pc_id %}">
+          <form method="POST" enctype="multipart/form-data" action="{% url 'gallery:party_update_pc' pc_id %}">
             {% csrf_token %}
 
             {% if form.errors %}
@@ -32,8 +32,8 @@
             {{ form.as_p }}
 
             <button type="submit" class="btn btn-secondary">Update</button> |
-            <a href="{% url 'party_detail' %}"><button type="button" class="btn btn-secondary">Back</button></a>
-            <a href="{% url 'party_update_pc' pc_id %}"><button type="button" class="btn btn-danger">Delete</button></a>
+            <a href="{% url 'gallery:party_detail' %}"><button type="button" class="btn btn-secondary">Back</button></a>
+            <a href="{% url 'gallery:party_update_pc' pc_id %}"><button type="button" class="btn btn-danger">Delete</button></a>
           </form>
         </div>
       </div>

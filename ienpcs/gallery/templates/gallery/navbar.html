@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-secondary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'game_list' %}">IENPCs</a>
+    <a class="navbar-brand" href="{% url 'gallery:game_list' %}">IENPCs</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       {% comment %}keep prettier-ignore, if removed the django-formatter addon deletes good code{% endcomment %}
@@ -10,42 +10,44 @@
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'game_list' %}active{% endif %}"
           aria-selected="{% if request.resolver_match.url_name == 'game_list' %}true{% else %}false{% endif %}"
-          href="{% url 'game_list' %}">Games</a>
+          href="{% url 'gallery:game_list' %}">Games</a>
         </li>
 
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'character_list' %}active{% endif %}"
           aria-selected="{% if request.resolver_match.url_name == 'character_list' %}true{% else %}false{% endif %}"
-          href="{% url 'character_list' %}">Characters</a>
+          href="{% url 'gallery:character_list' %}">Characters</a>
         </li>
 
         {% if user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'party_detail' %}active{% endif %}"
           aria-selected="{% if request.resolver_match.url_name == 'party_detail' %}true{% else %}false{% endif %}"
-          href="{% url 'party_detail' %}">Party</a>
+          href="{% url 'gallery:party_detail' %}">Party</a>
         </li>
         {% else %}
         <li class="nav-item">
           <a class="nav-link text-body-tertiary"
           aria-selected="{% if request.resolver_match.url_name == 'party_detail' %}true{% else %}false{% endif %}"
-          href="{% url 'party_detail' %}">Party</a>
+          href="{% url 'gallery:party_detail' %}">Party</a>
         </li>
         {% endif %}
 
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'link_list' %}active{% endif %}"
           aria-selected="{% if request.resolver_match.url_name == 'link_list' %}true{% else %}false{% endif %}"
-          href="{% url 'link_list' %}">Links</a>
+          href="{% url 'gallery:link_list' %}">Links</a>
         </li>
 
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}"
           aria-selected="{% if request.resolver_match.url_name == 'about' %}true{% else %}false{% endif %}"
-          href="{% url 'about' %}">About</a>
+          href="{% url 'gallery:about' %}">About</a>
         </li>
       </ul>
 
+      {% comment %}keep prettier-ignore, if removed the django-formatter addon deletes good code{% endcomment %}
+      {# prettier-ignore #}
       <ul class="navbar-nav mb-2 mb-lg-0 justify-content-end">
         {% if debug %}
           <li class="nav-item">
@@ -58,22 +60,22 @@
             <a class="nav-link text-body-tertiary">[{{user.username}}]</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            <a class="nav-link" href="{% url 'gallery:logout' %}">Logout</a>
           </li>
         {% else %}
           <li class="nav-item" >
             <a class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}"
             aria-selected="{% if request.resolver_match.url_name == 'login' %}true{% else %}false{% endif %}"
-            href="{% url 'login' %}">Login</a>
+            href="{% url 'gallery:login' %}">Login</a>
           </li>
           <li class="nav-item" >
             <a class="nav-link {% if request.resolver_match.url_name == 'register' %}active{% endif %}"
             aria-selected="{% if request.resolver_match.url_name == 'register' %}true{% else %}false{% endif %}"
-            href="{% url 'register' %}">Register</a>
+            href="{% url 'gallery:register' %}">Register</a>
           </li>
         {% endif %}
       </ul>
-      <form method="post" action="{% url 'toggle_theme' %}">
+      <form method="post" action="{% url 'gallery:toggle_theme' %}">
         {% csrf_token %}
         <button type="submit" class="btn ms-2 btn-outline-secondary">Dark/Light</button>
       </form>

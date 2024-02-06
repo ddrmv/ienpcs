@@ -76,7 +76,7 @@ def login_user(request):
         if form.is_valid():
             login(request, form.get_user())
             messages.success(request, "You have successfully logged in!")
-            return redirect("game_list")
+            return redirect("gallery:game_list")
         else:
             messages.error(request, "Error: Login unsuccessful.")
     else:
@@ -91,13 +91,13 @@ def logout_user(request):
     logout(request)
     request.session["theme"] = theme
     messages.success(request, "You have successfully logged out!")
-    return redirect("game_list")
+    return redirect("gallery:game_list")
 
 
 def register_user(request):
     if request.user.is_authenticated:
         messages.error(request, "Error: You are already registered and logged in!")
-        return redirect("index")
+        return redirect("gallery:index")
 
     if request.method == "POST":
         form = SignUpForm(request.POST)
@@ -125,7 +125,7 @@ def register_user(request):
             Party.objects.create(user=user)
             login(request, user)
             messages.success(request, "Registration and login successful!")
-            return redirect("index")
+            return redirect("gallery:index")
     else:
         form = SignUpForm()
 
@@ -168,14 +168,14 @@ def party_create_pc(request):
     party = get_object_or_404(Party, user=request.user)
     if party.pc_set.count() >= MAX_PCS_PER_PARTY:
         messages.error(request, f"The party already has {MAX_PCS_PER_PARTY} PCs.")
-        return redirect("party_detail")
+        return redirect("gallery:party_detail")
 
     if request.method == "POST":
         form = CreatePcForm(request.POST, request.FILES, instance=Pc(party=party))
         if form.is_valid():
             form.save()
             messages.success(request, "PC has been created.")
-            return redirect("party_detail")
+            return redirect("gallery:party_detail")
     else:
         form = CreatePcForm()
 
@@ -201,7 +201,7 @@ def party_update_pc(request, id):
         if form.is_valid():
             form.save()
             messages.success(request, "PC updated!")
-            return redirect("party_detail")
+            return redirect("gallery:party_detail")
     else:
         form = CreatePcForm(instance=current_pc)
 
@@ -224,7 +224,7 @@ def party_set_size(request, party_size):
     party.slot_set.filter(position__gt=party_size).update(
         object_id=None, content_type=None
     )
-    return redirect("party_detail")
+    return redirect("gallery:party_detail")
 
 
 @login_required
@@ -234,7 +234,7 @@ def party_slot_clear(request, position):
     slot.object_id = None
     slot.content_type = None
     slot.save()
-    return redirect("party_detail")
+    return redirect("gallery:party_detail")
 
 
 @login_required
@@ -244,7 +244,7 @@ def party_slot_set_npc(request, position, id):
     slot.object_id = id
     slot.content_type = ContentType.objects.get_for_model(Npc)
     slot.save()
-    return redirect("party_detail")
+    return redirect("gallery:party_detail")
 
 
 @login_required
@@ -255,7 +255,7 @@ def party_slot_set_pc(request, position, id):
     slot.object_id = id
     slot.content_type = ContentType.objects.get_for_model(Pc)
     slot.save()
-    return redirect("party_detail")
+    return redirect("gallery:party_detail")
 
 
 @login_required
@@ -267,7 +267,7 @@ def party_slot_swap_left(request, position):
         slot_on_left.position, slot.position = slot.position, slot_on_left.position
         slot.save()
         slot_on_left.save()
-    return redirect("party_detail")
+    return redirect("gallery:party_detail")
 
 
 @login_required
@@ -279,7 +279,7 @@ def party_slot_swap_right(request, position):
         slot_on_right.position, slot.position = slot.position, slot_on_right.position
         slot.save()
         slot_on_right.save()
-    return redirect("party_detail")
+    return redirect("gallery:party_detail")
 
 
 def toggle_theme(request):

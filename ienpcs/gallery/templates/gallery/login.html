@@ -18,7 +18,7 @@
           {% if user.is_authenticated %}
             <p class="text-center m-0 p-0">You are already logged in, {{ user.username }}!</p>
           {% else %}
-            <form method="post" action="{% url 'login' %}">
+            <form method="post" action="{% url 'gallery:login' %}">
               {% csrf_token %}
               <div class="mb-3">
                 <label class="form-label">Username</label>

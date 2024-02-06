@@ -18,13 +18,13 @@
         {% for ch in character_list %}
           <div class="col-auto mb-4">
             <div class="card h-100" style="width: 210px;">
-              <a href="{% url 'character_detail' ch.slug %}"><img src="{{ ch.img_170.url }}" class="card-img-top" alt="Portrait of {{ ch.name }}" /></a>
+              <a href="{% url 'gallery:character_detail' ch.slug %}"><img src="{{ ch.img_170.url }}" class="card-img-top" alt="Portrait of {{ ch.name }}" /></a>
               <div class="card-body">
                 <h5 class="card-title">{{ ch.name }}</h5>
                 <p class="card-text">{{ ch.description }}</p>
               </div>
               <div class="card-footer">
-                <small class="text-body-secondary"><a href="{% url 'character_detail' ch.slug %}">Character page.</a></small>
+                <small class="text-body-secondary"><a href="{% url 'gallery:character_detail' ch.slug %}">Character page.</a></small>
               </div>
             </div>
           </div>

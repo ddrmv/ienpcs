@@ -8,7 +8,7 @@
   <div class="container" style="max-width: 1150px;">
     <div class="row pt-5">
       <div class="col-12">
-        <h2 class="border-bottom mb-4 pb-2"><a class="text-decoration-none" href="{% url 'game_list' %}">{{ game.name }}</a></h2>
+        <h2 class="border-bottom mb-4 pb-2"><a class="text-decoration-none" href="{% url 'gallery:game_list' %}">{{ game.name }}</a></h2>
         <p>{{ game.description }}</p>
       </div>
     </div>
@@ -35,7 +35,7 @@
                       <h6 class="card-subtitle mb-2 text-body-secondary">{{ npc_in_game.npc.race }}</h6>
                       <h6 class="card-subtitle mb-2 text-body-secondary">{{ npc_in_game.npc.get_alignment_display }}</h6>
                       {% if user.is_authenticated %}
-                        <h6 class="card-subtitle mb-2 text-body-secondary"><small><a href="{% url 'party_add_npc' npc_in_game.npc.id%}">Add to Party</a></small></h6>
+                        <h6 class="card-subtitle mb-2 text-body-secondary"><small><a href="{% url 'gallery:party_add_npc' npc_in_game.npc.id %}">Add to Party</a></small></h6>
                       {% else %}
                         <h6 class="card-subtitle mb-2 text-body-tertiary"><small><a title="You must be logged in to manage Party">Add to Party</a></small></h6>
                       {% endif %}

@@ -46,7 +46,7 @@
                   <ul class="dropdown-menu">
                     {% for npc in npcs %}
                       <li>
-                        <a class="dropdown-item" href="{% url 'party_slot_set_npc' forloop.parentloop.counter npc.id %}">{{ npc.name }}</a>
+                        <a class="dropdown-item" href="{% url 'gallery:party_slot_set_npc' forloop.parentloop.counter npc.id %}">{{ npc.name }}</a>
                       </li>
                     {% endfor %}
                   </ul>
@@ -58,7 +58,7 @@
                   <ul class="dropdown-menu">
                     {% for pc in pcs %}
                       <li>
-                        <a class="dropdown-item" href="{% url 'party_slot_set_pc' forloop.parentloop.counter pc.id %}">{{ pc.name }}</a>
+                        <a class="dropdown-item" href="{% url 'gallery:party_slot_set_pc' forloop.parentloop.counter pc.id %}">{{ pc.name }}</a>
                       </li>
                     {% endfor %}
                   </ul>
@@ -69,15 +69,15 @@
                 {% if forloop.first %}
                   <a><button type="button" class="btn btn-sm px-1 py-0 btn-tertiary disabled border-0">&lt;</button></a>
                 {% else %}
-                  <a href="{% url 'party_slot_swap_left' forloop.counter %}"><button type="button" class="btn btn-sm px-1 py-0 btn-tertiary">&lt;</button></a>
+                  <a href="{% url 'gallery:party_slot_swap_left' forloop.counter %}"><button type="button" class="btn btn-sm px-1 py-0 btn-tertiary">&lt;</button></a>
                 {% endif %}
 
-                <a href="{% url 'party_slot_clear' forloop.counter %}"><button type="button" class="btn btn-sm px-1 py-0 btn-tertiary">Clear</button></a>
+                <a href="{% url 'gallery:party_slot_clear' forloop.counter %}"><button type="button" class="btn btn-sm px-1 py-0 btn-tertiary">Clear</button></a>
 
                 {% if forloop.last %}
                   <a><button type="button" class="btn btn-sm px-1 py-0 btn-tertiary disabled border-0">&gt;</button></a>
                 {% else %}
-                  <a href="{% url 'party_slot_swap_right' forloop.counter %}"><button type="button" class="btn btn-sm px-1 py-0 btn-tertiary">&gt;</button></a>
+                  <a href="{% url 'gallery:party_slot_swap_right' forloop.counter %}"><button type="button" class="btn btn-sm px-1 py-0 btn-tertiary">&gt;</button></a>
                 {% endif %}
               </div>
             </div>
@@ -91,7 +91,7 @@
           Party size:{% comment %}Without prettier-ignore django-templates extension converts "123456" to int{% endcomment %}
           {# prettier-ignore #}
           {% for slot_num in "123456" %}
-            <a href="{% url 'party_set_size' slot_num %}"><button type="button" class="btn py-0 btn-outline-secondary">{{ slot_num }}</button></a>
+            <a href="{% url 'gallery:party_set_size' slot_num %}"><button type="button" class="btn py-0 btn-outline-secondary">{{ slot_num }}</button></a>
           {% endfor %}
         </div>
       </div>
@@ -135,7 +135,7 @@
                   <td>{{ npc.wis }}</td>
                   <td>{{ npc.cha }}</td>
                   <td>
-                    <a href="{% url 'party_remove_npc' npc.id %}"><small>Remove</small></a>
+                    <a href="{% url 'gallery:party_remove_npc' npc.id %}"><small>Remove</small></a>
                   </td>
                 </tr>
               {% endfor %}
@@ -178,14 +178,14 @@
                   <td>{{ pc.wis }}</td>
                   <td>{{ pc.cha }}</td>
                   <td>
-                    <a href="{% url 'party_update_pc' pc.id %}"><small>Edit</small></a>
-                    <a href="{% url 'party_delete_pc' pc.id %}"><small>Del</small></a>
+                    <a href="{% url 'gallery:party_update_pc' pc.id %}"><small>Edit</small></a>
+                    <a href="{% url 'gallery:party_delete_pc' pc.id %}"><small>Del</small></a>
                   </td>
                 </tr>
               {% endfor %}
             </tbody>
           </table>
-          <a href="{% url 'party_create_pc' %}"><small>Add PC</small></a>
+          <a href="{% url 'gallery:party_create_pc' %}"><small>Add PC</small></a>
         </div>
       </div>
     </div>
