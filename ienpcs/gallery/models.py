@@ -128,13 +128,13 @@ class Npc(models.Model):
     alignment = models.CharField(
         max_length=2, choices=Alignment.choices, default=Alignment.UN
     )
-    str = models.IntegerField()
-    str_percentile = models.IntegerField(null=True, blank=True)
-    dex = models.IntegerField()
-    con = models.IntegerField()
-    int = models.IntegerField()
-    wis = models.IntegerField()
-    cha = models.IntegerField()
+    str = models.SmallIntegerField()
+    str_percentile = models.SmallIntegerField(null=True, blank=True)
+    dex = models.SmallIntegerField()
+    con = models.SmallIntegerField()
+    int = models.SmallIntegerField()
+    wis = models.SmallIntegerField()
+    cha = models.SmallIntegerField()
     description = models.CharField(max_length=500, blank=True, default="")
 
     def __str__(self):
@@ -210,13 +210,13 @@ class Pc(models.Model):
     alignment = models.CharField(
         default="True Neutral", max_length=20, blank=True, null=True
     )
-    str = models.PositiveSmallIntegerField(default=10, blank=True, null=True)
-    str_percentile = models.PositiveSmallIntegerField(null=True, blank=True)
-    dex = models.PositiveSmallIntegerField(default=10, blank=True, null=True)
-    con = models.PositiveSmallIntegerField(default=10, blank=True, null=True)
-    int = models.PositiveSmallIntegerField(default=10, blank=True, null=True)
-    wis = models.PositiveSmallIntegerField(default=10, blank=True, null=True)
-    cha = models.PositiveSmallIntegerField(default=10, blank=True, null=True)
+    str = models.SmallIntegerField(default=10, blank=True, null=True)
+    str_percentile = models.SmallIntegerField(null=True, blank=True)
+    dex = models.SmallIntegerField(default=10, blank=True, null=True)
+    con = models.SmallIntegerField(default=10, blank=True, null=True)
+    int = models.SmallIntegerField(default=10, blank=True, null=True)
+    wis = models.SmallIntegerField(default=10, blank=True, null=True)
+    cha = models.SmallIntegerField(default=10, blank=True, null=True)
 
     def __str__(self):
         return self.name
