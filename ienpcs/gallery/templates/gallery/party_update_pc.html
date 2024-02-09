@@ -14,7 +14,7 @@
 
     <div class="container mt-4 py-5 shadow-sm bg-body-tertiary">
       <div class="row justify-content-center">
-        <div class="col-4">
+        <div class="col-5">
           <form method="POST" enctype="multipart/form-data" action="{% url 'gallery:party_update_pc' pc_id %}">
             {% csrf_token %}
 
@@ -27,6 +27,11 @@
                   {% endif %}
                 {% endfor %}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endif %}
+            {% if form.instance.web_image %}
+              <div class="mb-2 text-center">
+                <img src="{{ form.instance.web_image.url }}" width="110" height="170" alt="Current Image" />
               </div>
             {% endif %}
             {{ form.as_p }}
