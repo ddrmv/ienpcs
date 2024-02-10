@@ -9,7 +9,7 @@ This Django app serves as a character management system, featuring a gallery of 
 
 As anonymous user you can:
 - browse games
-- browse NPCs per game
+- browse Non-Player Characters (NPCs) per game
 - browse characters, related NPC and portraits
 - see linked sites
 - use contact form to reach site admin
@@ -17,14 +17,14 @@ As anonymous user you can:
 - register a user account
 
 As a registered user you can do all of the above and:
-- add NPC to party roster from game page or character page
-- create/update/delete custom player characters (PCs)
-- upload a portraits for the PCs and modify their attributes
+- add NPCs to party roster from game page or character page
+- create/update/delete custom Player Characters (PCs)
+- upload portraits for the PCs and modify their attributes
 - manage a custom party selection list of up to 20 NPCs and 10 PCs
-- manage an up to six-slot party, persistent between logins
-- add to the slots NPCs and PCs from the list
+- manage a party of up to six slots, persistent between logins
+- assign to the slots NPCs and PCs from the list
 - clear slots or swap with adjacent slots
-- change the number of slots in the party ranging from 1 to 6
+- change the size of the party, ranging from 1 to 6 slots
 
 As an admin you can do all of the above and:
 - manage users, invitation codes
@@ -103,17 +103,17 @@ python manage.py loaddata TODO:FIXTURE
 
 ## Screenshots
 
-### Games list (Home page)
-![Games List](https://i.imgur.com/EYpFpCm.png)
+### Game list (Home page)
+![Game List](https://i.imgur.com/EYpFpCm.png)
 A Light theme screenshot of the game list page. Here users can see a list of games and all associated NPCs.
 
 ### Game detail page
-![Games detail](https://i.imgur.com/UFiMUKI.png)
-A Dark theme screenshot of the game detail page, with all NPCs in three groups: original, added by Beamdog in Enhanced Editions, created by modders.
+![Game detail](https://i.imgur.com/UFiMUKI.png)
+A Dark theme screenshot of the game detail page, with the NPCs in three groups: original, added by Beamdog in Enhanced Editions, created by modders.
 
 ### Party management page
 ![Party management](https://i.imgur.com/ynZzwoj.png)
-A screenshot of the party management page, as it works for registered users. For unregistered users it is mostly empty.
+A screenshot of the party management page, as it works for registered users.
 
 ![Party management as guest](https://i.imgur.com/5PFUt8f.png)
 The party management page when not logged in.
@@ -123,7 +123,7 @@ Registered users can add NPCs and create, modify and delete custom PCs:
 
 ### Character list page
 ![Character list](https://i.imgur.com/pa0Ilb0.png)
-At the character list page are all characters of all games.
+At the character list page are all characters from all games.
 
 ### Character detail page
 ![Character detail](https://i.imgur.com/Voj6UWJ.png)
@@ -131,7 +131,7 @@ At the character detail page are all portraits for the character and their appea
 
 ### About/Contact page
 ![About](https://i.imgur.com/BtleRz4.png)
-The About page explains in more detail the structure of the site, how it works, and provides a form to send a message to the site owner.
+The About page explains in more detail the structure of the site, how it works, and provides a form to send a message to the site Admin.
 
 ### Links page
 ![Links](https://i.imgur.com/UqXRFAv.png)
