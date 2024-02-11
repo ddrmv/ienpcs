@@ -19,6 +19,7 @@
           href="{% url 'gallery:character_list' %}">Characters</a>
         </li>
 
+        {% comment %} Standard nav if logged in, functional but greyed out if logged oud {% endcomment %}
         {% if user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'party_detail' %}active{% endif %}"
@@ -49,6 +50,7 @@
       {% comment %}keep prettier-ignore, if removed the django-formatter addon deletes good code{% endcomment %}
       {# prettier-ignore #}
       <ul class="navbar-nav mb-2 mb-lg-0 justify-content-end">
+        {% comment %} Shortcut to admin site for debugging sessions {% endcomment %}
         {% if debug %}
           <li class="nav-item">
             <a class="nav-link" href="http://127.0.0.1:8000/admin/" target="_blank">- Admin -</a>

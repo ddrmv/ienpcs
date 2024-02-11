@@ -9,10 +9,11 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-MAX_PARTY_SIZE = 6
+MAX_PARTY_SIZE = 6  # Maximum number of party slots used in party management
 
 
 def web_image_with_hash(instance, filename):
+    """Save name and location for npc portraits."""
     path = "web_portraits"
     fname, extension = os.path.splitext(filename)
     uuid_str = str(uuid.uuid4())
@@ -21,6 +22,7 @@ def web_image_with_hash(instance, filename):
 
 
 def zip_file_with_hash(instance, filename):
+    """Save name and location for bmp pack zip files."""
     path = "zip_file"
     fname, extension = os.path.splitext(filename)
     uuid_str = str(uuid.uuid4())
@@ -29,6 +31,7 @@ def zip_file_with_hash(instance, filename):
 
 
 def char_portrait_with_hash(instance, filename):
+    """Save name and location for portrait web images."""
     path = "chars"
     fname, extension = os.path.splitext(filename)
     uuid_str = str(uuid.uuid4())
@@ -37,6 +40,13 @@ def char_portrait_with_hash(instance, filename):
 
 
 class Game(models.Model):
+    """Model for IE games like BG1/2.
+
+    Fields:
+        short_name (str) - For use in menus, etc, like BG2:EE (where slug is bg2ee)
+        order      (int) - Used for custom ordering in template and admin
+    """
+
     name = models.CharField(max_length=50)
     slug = models.CharField(max_length=10)
     short_name = models.CharField(max_length=10)
@@ -53,12 +63,16 @@ class Game(models.Model):
 
 
 class CharOrigin(models.TextChoices):
+    """Enum for how a Character was created - Bioware(original), modder, beamdog."""
+
     OR = "OR", _("Original")
     MO = "MO", _("Mod")
     BE = "BE", _("Beamdog")
 
 
 class PortraitOrigin(models.TextChoices):
+    """Enum for origin of Portraits."""
+
     OR = "OR", _("Original")
     MO = "MO", _("Mod")
     BE = "BE", _("Beamdog")
@@ -66,6 +80,13 @@ class PortraitOrigin(models.TextChoices):
 
 
 class Character(models.Model):
+    """Entry for character Portraits and lore, connected with multiple NPCs.
+
+    Fields:
+        slug    (str) - Used for urls
+        img_170 (img) - Main image for the Character (TODO change name)
+    """
+
     name = models.CharField(max_length=100)
     slug = models.SlugField()
     origin = models.CharField(
@@ -82,6 +103,15 @@ class Character(models.Model):
 
 
 class InvitationCode(models.Model):
+    """Invitation code to use at registration.
+
+    Fields:
+        code (str)     - The code itself
+        note (str)     - Association, e.g. period, forum, etc.
+        in_use (bool)  - Change to disable registrations before reacing max_uses
+        max_uses (int) - Disable code upon reaching it
+    """
+
     code = models.CharField(max_length=100)
     note = models.CharField(max_length=100, null=True, blank=True)
     in_use = models.BooleanField(default=True)
@@ -95,6 +125,8 @@ class InvitationCode(models.Model):
 
 
 class Link(models.Model):
+    """Model for links on the Links page."""
+
     description = models.CharField(max_length=50)
     url = models.URLField()
 
@@ -106,7 +138,22 @@ class Link(models.Model):
 
 
 class Npc(models.Model):
+    """Model for NPC, many-to-one for Character, many-to-many for Game.
+
+    Fields:
+        web_image (img)  - Small image to display on pages
+        admin_note (str) - Note to serve as reminder of sorting, game allocation, etc
+        adnd_class (str) - AD&D Class name, e.g. Fighter, Fighter/Mage
+        race (str)       - AD&D Race or Sub-Race name, e.g. Elf, Drow, Winged Elf, with (M)/(F)
+        alignment (str)  - Enum for AD&D Alignment
+        str-cha (int)    - Attributes: Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma
+        str_percentile (int) - 1-100, for Fighter type Classes, if str is 18, optional
+        description (str)    - Short description, currently not shown anywhere
+    """
+
     class Alignment(models.TextChoices):
+        """Enum for AD&D aligments."""
+
         CG = "CG", _("Chaotic Good")
         NG = "NG", _("Neutral Good")
         LG = "LG", _("Lawful Good")
@@ -145,6 +192,16 @@ class Npc(models.Model):
 
 
 class Portrait(models.Model):
+    """Model for portraits in Character portrait galleries.
+
+    Fields:
+        origin (str)      - Enum for who created the image - original, beamdog, mod, fanart
+        description (str) - Extra info about the image, not currently shown
+        source (str)      - URL link to where the image was taken from, optional (none for original game art)
+        web_image (img)   - Image to show on the website, should be losslessly compressed
+        zip_file (zip)    - Optional, should be plain .zip file of .bmp files ready for use in games
+    """
+
     character = models.ForeignKey(Character, null=True, on_delete=models.SET_NULL)
     origin = models.CharField(
         max_length=2, choices=PortraitOrigin.choices, default=PortraitOrigin.OR
@@ -163,6 +220,8 @@ class Portrait(models.Model):
 
 
 class NpcInGame(models.Model):
+    """Many-to-many relationship between Npc and Game, with extra field 'origin'."""
+
     game = models.ForeignKey(Game, null=True, on_delete=models.SET_NULL)
     npc = models.ForeignKey(Npc, null=True, on_delete=models.SET_NULL)
     origin = models.CharField(
@@ -174,6 +233,16 @@ class NpcInGame(models.Model):
 
 
 class Party(models.Model):
+    """Model to use for Party management.
+
+    Created automatically upon user creation.
+
+    Fields:
+        user (fk)   - One party for one auth model user
+        npcs (mtm)  - Up to 20 npcs to keep on a shortlist on Party page
+        party_size (int) - Number of slots to use for party, user-settable, 1 to 6
+    """
+
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     npcs = models.ManyToManyField(Npc, blank=True)
     party_size = models.PositiveSmallIntegerField(
@@ -184,14 +253,16 @@ class Party(models.Model):
         return f"{ self.user.username }"
 
     def save(self, *args, **kwargs):
+        """Create 6 (MAX_PARTY_SIZE) slots upon Party creation."""
         is_new = self.pk is None
         super().save(*args, **kwargs)
         if is_new:
-            for i in range(6):
+            for i in range(MAX_PARTY_SIZE):
                 Slot.objects.create(party=self, position=i + 1)
 
 
 def pc_portrait_path(instance, filename):
+    """Path for saving user-uploaded image for user-created Pc."""
     path = "pcs"
     _, extension = os.path.splitext(filename)
     uuid_str = str(uuid.uuid4())
@@ -200,6 +271,14 @@ def pc_portrait_path(instance, filename):
 
 
 class Pc(models.Model):
+    """Model for user-created player characters.
+
+    Fields:
+        web_image (img) - Image of any dimensions, up to 100 KB file size
+        adnd_class, race, alignment (str) - AD&D attributes, as for NPCs but more flexible
+        str-cha (int)   - AD&D attributes, same as for NPCs
+    """
+
     party = models.ForeignKey(Party, on_delete=models.CASCADE)
     web_image = models.ImageField(upload_to=pc_portrait_path, blank=True, null=True)
     name = models.CharField(max_length=30)
@@ -226,6 +305,15 @@ class Pc(models.Model):
 
 
 class Slot(models.Model):
+    """Model for NPC/PC slots that together represent a party.
+
+    It uses GenericForeignKey to Pc or Npc model.
+
+    Fields:
+        content_type, object_id, content_object - together represent GenericForeignKey
+        position (int) - Order position, left to right, the position of the slot on the page
+    """
+
     party = models.ForeignKey(Party, on_delete=models.CASCADE)
     content_type = models.ForeignKey(
         ContentType, on_delete=models.CASCADE, blank=True, null=True

@@ -28,7 +28,7 @@ As a registered user you can do all of the above and:
 
 As an admin you can do all of the above and:
 - manage users, invitation codes
-- add/update/remove games, NPCs, characters, portraits
+- add/update/remove games, NPCs, characters, portraits, links
 - create and manage links between NPCs, characters, games, portraits
 
 

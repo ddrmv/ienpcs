@@ -14,6 +14,7 @@
     </div>
 
     <div class="container mt-4 pb-5 shadow-sm bg-body-tertiary">
+      {% comment %}Outer loop for Original/Beamdog/Mod categories{% endcomment %}
       {% for origin, npc_in_game_qset in origin_dict.items %}
         <div class="row px-4 pt-5">
           <div class="col-12">

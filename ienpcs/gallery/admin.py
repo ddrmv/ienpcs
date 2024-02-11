@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+# All models, each with an admin.ModelAdmin class, are registered with admin.site
 from .models import (
     Character,
     Game,

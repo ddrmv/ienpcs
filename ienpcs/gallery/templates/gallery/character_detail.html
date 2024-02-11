@@ -16,6 +16,7 @@
             <p>Character origin - {{ character.get_origin_display }}.</p>
           </div>
           <div class="col-8">
+            {% comment %}Card that holds NPCs (portrait + attributes) related to Character{% endcomment %}
             <div class="card">
               <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs" id="npc-in-game-list" role="tablist">
@@ -133,6 +134,7 @@
       </div>
 
       <div class="row justify-content-center">
+        {% comment %}Portraits for the character with soruce and optionally bmp zip{% endcomment %}
         {% for pt in character.portrait_set.all %}
           <div class="col-auto mb-4">
             <div class="card h-100" style="width: 212px;">

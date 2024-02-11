@@ -7,12 +7,16 @@ from .validators import web_image_size
 
 
 class AuthenticateUserForm(AuthenticationForm):
+    """Form used for logging in."""
+
     class Meta:
         model = User
         fields = ("username", "password")
 
 
 class ContactForm(forms.Form):
+    """Form used to send an email to the site admin."""
+
     name = forms.CharField(max_length=80)
     email = forms.EmailField(required=False)
     message = forms.CharField(widget=forms.Textarea)
@@ -25,6 +29,8 @@ class ContactForm(forms.Form):
 
 
 class CreatePcForm(forms.ModelForm):
+    """Form used for creating and updating Player Characters for party."""
+
     class Meta:
         model = Pc
         fields = (
@@ -66,7 +72,7 @@ class CreatePcForm(forms.ModelForm):
                 field
             ].help_text = f'<span class="form-text">{ help_text_dict[field] }</span>'
 
-        # Add for-control to all fields
+        # Add form-control to all fields
         for field in self.fields.values():
             field.widget.attrs["class"] = "form-control"
 
@@ -89,6 +95,8 @@ class CreatePcForm(forms.ModelForm):
 
 
 class SignUpForm(UserCreationForm):
+    """Form used for signing up new users."""
+
     invitation_code = forms.CharField(
         label="Invitation code:",
         widget=forms.TextInput(

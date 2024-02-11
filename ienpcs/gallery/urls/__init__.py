@@ -5,6 +5,7 @@ from .party_urls import urlpatterns as party_urls
 
 app_name = "gallery"
 
+# This is the main section, party management related urls are added from party_urls
 urlpatterns = [
     path("", views.GameListView.as_view(), name="index"),
     path("games/", views.GameListView.as_view(), name="game_list"),
