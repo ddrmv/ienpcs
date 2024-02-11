@@ -16,7 +16,13 @@ from .models import (
 
 
 class CharacterAdmin(admin.ModelAdmin):
-    list_display = ["name", "slug", "origin", "turncated_description"]
+    list_display = [
+        "name",
+        "slug",
+        "origin",
+        "short_description",
+        "turncated_description",
+    ]
     list_filter = ["origin"]
     search_fields = ["name"]
 

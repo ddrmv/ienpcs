@@ -93,7 +93,8 @@ class Character(models.Model):
         max_length=2, choices=CharOrigin.choices, default=CharOrigin.OR
     )
     img_170 = models.ImageField(upload_to=char_portrait_with_hash)
-    description = models.CharField(max_length=1000)
+    short_description = models.CharField(max_length=100, blank=True, default="")
+    description = models.CharField(max_length=1000, blank=True, default="")
 
     def __str__(self):
         return f"{self.name}"
