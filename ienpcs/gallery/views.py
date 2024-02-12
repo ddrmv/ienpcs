@@ -247,7 +247,7 @@ def party_delete_pc(request, id):
     pc = get_object_or_404(Pc, id=id, party=party)
     pc.delete()
     messages.success(request, "PC deleted!")
-    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+    return redirect("gallery:party_detail")
 
 
 @login_required
