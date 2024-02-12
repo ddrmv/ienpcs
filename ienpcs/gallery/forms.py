@@ -66,29 +66,27 @@ class CreatePcForm(forms.ModelForm):
             "cha": "Usually 3 to 18",
         }
 
-        # Add form-text to all fields from help_text_dict
-        for field in self.fields.keys():
-            self.fields[
-                field
-            ].help_text = f'<span class="form-text">{ help_text_dict[field] }</span>'
+        label_dict = {
+            "name": "Name",
+            "web_image": "Portrait",
+            "adnd_class": "Class",
+            "race": "Race",
+            "alignment": "Alignment",
+            "str": "Strength",
+            "str_percentile": "Str /100",
+            "dex": "Dexterity",
+            "con": "Constitution",
+            "int": "Intelligence",
+            "wis": "Wisdom",
+            "cha": "Charisma",
+        }
 
-        # Add form-control to all fields
-        for field in self.fields.values():
-            field.widget.attrs["class"] = "form-control"
-
-        # Add label to all fields
-        self.fields["name"].label = "Name"
-        self.fields["web_image"].label = "Portrait"
-        self.fields["adnd_class"].label = "Class"
-        self.fields["race"].label = "Race"
-        self.fields["alignment"].label = "Alignment"
-        self.fields["str"].label = "Strength"
-        self.fields["str_percentile"].label = "Str /100"
-        self.fields["dex"].label = "Dexterity"
-        self.fields["con"].label = "Constitution"
-        self.fields["int"].label = "Intelligence"
-        self.fields["wis"].label = "Wisdom"
-        self.fields["cha"].label = "Charisma"
+        # Add form-text to all fields from help_text_dict, add form-control, labels
+        for field_key, field_value in self.fields.items():
+            field_value.widget.attrs["class"] = "form-control"
+            field_value.label = label_dict[field_key]
+            help_str = f'<span class="form-text">{ help_text_dict[field_key] }</span>'
+            field_value.help_text = help_str
 
         # Add custom validators
         self.fields["web_image"].validators.append(web_image_size)
@@ -114,30 +112,36 @@ class SignUpForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
 
-        self.fields["username"].widget.attrs["class"] = "form-control"
-        self.fields["username"].widget.attrs["placeholder"] = "..."
-        self.fields["username"].label = "Username"
-        self.fields[
-            "username"
-        ].help_text = '<span class="form-text text-muted">Up to 150 characters. Letters, digits and @.+-_ only.</span>'
+        help_text_dict = {
+            "username": "Up to 150 characters. Letters, digits and @.+-_ only.",
+            "email": "Enter a vaild email.",
+            "password1": "PLACEHOLDER",  # Will be overridden
+            "password2": "Enter the same password as before, for verification.",
+        }
 
-        self.fields["email"].widget.attrs["class"] = "form-control"
-        self.fields["email"].widget.attrs["placeholder"] = "..."
-        self.fields["email"].label = "Email"
-        self.fields[
-            "email"
-        ].help_text = '<span class="form-text text-muted">Enter a vaild email.</span>'
+        label_dict = {
+            "username": "Username",
+            "email": "Email",
+            "password1": "Password",
+            "password2": "Confirm Password",
+        }
 
-        self.fields["password1"].widget.attrs["class"] = "form-control"
-        self.fields["password1"].widget.attrs["placeholder"] = "..."
-        self.fields["password1"].label = "Password"
-        self.fields[
-            "password1"
-        ].help_text = "<ul class=\"form-text text-muted small\"><li>Your password can't be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can't be a commonly used password.</li><li>Your password can't be entirely numeric.</li></ul>"
+        for field in ["username", "email", "password1", "password2"]:
+            field_value = self.fields[field]
+            field_value.widget.attrs["class"] = "form-control"
+            field_value.widget.attrs["placeholder"] = "..."
+            field_value.label = label_dict[field]
+            help_str = (
+                f'<span class="form-text text-muted">{ help_text_dict[field] }</span>'
+            )
+            field_value.help_text = help_str
 
-        self.fields["password2"].widget.attrs["class"] = "form-control"
-        self.fields["password2"].widget.attrs["placeholder"] = "..."
-        self.fields["password2"].label = "Confirm Password"
-        self.fields[
-            "password2"
-        ].help_text = '<span class="form-text text-muted">Enter the same password as before, for verification.</span>'
+        # Override parrword1 help text, differently styled by bootstrap
+        self.fields["password1"].help_text = (
+            '<ul class="form-text text-muted small">'
+            "<li>Your password can't be too similar to your other personal information.</li>"
+            "<li>Your password must contain at least 8 characters.</li>"
+            "<li>Your password can't be a commonly used password.</li>"
+            "<li>Your password can't be entirely numeric.</li>"
+            "</ul>"
+        )
